@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "supply",
+            "otherEntityName": "supply",
+            "otherEntityRelationshipName": "supplyType"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "supplyType",
+            "relationshipName": "stAttribute",
+            "otherEntityName": "sTAttribute",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "wsConfiguration",
+            "otherEntityName": "wSConfiguration",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "supplyType"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170828092721",
+    "entityTableName": "supply_type",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

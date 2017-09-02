@@ -1,0 +1,23 @@
+{
+    "sfiApp": {
+        "mOProduct" : {
+            "home": {
+                "title": "MO Products",
+                "createLabel": "Criar novo MO Product",
+                "createOrEditLabel": "Criar ou editar MO Product"
+            },
+            "created": "Um novo MO Product foi criado com o identificador {{ param }}",
+            "updated": "Um MO Product foi atualizado com o identificador {{ param }}",
+            "deleted": "Um MO Product foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir MO Product {{ id }}?"
+            },
+            "detail": {
+                "title": "MO Product"
+            },
+            "quantity": "Quantity",
+            "manufacturinOrder": "Manufacturin Order",
+            "product": "Product"
+        }
+    }
+}

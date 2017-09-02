@@ -1,0 +1,116 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "wsConfiguration",
+            "otherEntityName": "wSConfiguration",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "manufacturingOrder",
+            "otherEntityName": "manufacturingOrder",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "moProduct",
+            "otherEntityName": "mOProduct",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "line",
+            "otherEntityName": "line",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "workStation",
+            "otherEntityName": "workStation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "prevWorkStation",
+            "otherEntityName": "workStation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "nextWorkStation",
+            "otherEntityName": "workStation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "nextTracer",
+            "otherEntityName": "tracer",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "prevTracer",
+            "otherEntityName": "tracer",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "tracer"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "inTime",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "startTime",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "endTime",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "time",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170828092726",
+    "entityTableName": "tracer",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

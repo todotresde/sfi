@@ -1,0 +1,23 @@
+{
+    "sfiApp": {
+        "workStation" : {
+            "home": {
+                "title": "Work Stations",
+                "createLabel": "Criar novo Work Station",
+                "createOrEditLabel": "Criar ou editar Work Station"
+            },
+            "created": "Um novo Work Station foi criado com o identificador {{ param }}",
+            "updated": "Um Work Station foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Work Station foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Work Station {{ id }}?"
+            },
+            "detail": {
+                "title": "Work Station"
+            },
+            "name": "Name",
+            "shortName": "Short Name",
+            "ip": "Ip"
+        }
+    }
+}

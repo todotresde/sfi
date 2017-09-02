@@ -1,0 +1,68 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "workStation",
+            "otherEntityName": "workStation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "wSConfiguration"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "prevWorkStation",
+            "otherEntityName": "workStation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "wSConfiguration"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "nextWorkStation",
+            "otherEntityName": "workStation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "wSConfiguration"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "wsConfiguration",
+            "relationshipName": "supplyType",
+            "otherEntityName": "supplyType",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "wsConfiguration",
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "line",
+            "otherEntityName": "line",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "first",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "last",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20170828092716",
+    "entityTableName": "ws_configuration",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

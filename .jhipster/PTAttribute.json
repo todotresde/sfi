@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "productType",
+            "otherEntityName": "productType",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ptAttribute"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170828092725",
+    "entityTableName": "pt_attribute",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

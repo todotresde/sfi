@@ -1,0 +1,22 @@
+{
+    "sfiApp": {
+        "sTAttribute" : {
+            "home": {
+                "title": "ST Attributes",
+                "createLabel": "Criar novo ST Attribute",
+                "createOrEditLabel": "Criar ou editar ST Attribute"
+            },
+            "created": "Um novo ST Attribute foi criado com o identificador {{ param }}",
+            "updated": "Um ST Attribute foi atualizado com o identificador {{ param }}",
+            "deleted": "Um ST Attribute foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir ST Attribute {{ id }}?"
+            },
+            "detail": {
+                "title": "ST Attribute"
+            },
+            "name": "Name",
+            "supplyType": "Supply Type"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "sfiApp": {
+        "line" : {
+            "home": {
+                "title": "Lines",
+                "createLabel": "Criar novo Line",
+                "createOrEditLabel": "Criar ou editar Line"
+            },
+            "created": "Um novo Line foi criado com o identificador {{ param }}",
+            "updated": "Um Line foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Line foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Line {{ id }}?"
+            },
+            "detail": {
+                "title": "Line"
+            },
+            "name": "Name",
+            "wsConfiguration": "Ws Configuration"
+        }
+    }
+}

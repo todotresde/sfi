@@ -1,0 +1,37 @@
+
+<div *ngIf="manufacturingOrder">
+    <h2><span jhiTranslate="sfiApp.manufacturingOrder.detail.title">Manufacturing Order</span> {{manufacturingOrder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="sfiApp.manufacturingOrder.code">Code</span></dt>
+        <dd>
+            <span>{{manufacturingOrder.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="sfiApp.manufacturingOrder.date">Date</span></dt>
+        <dd>
+            <span>{{manufacturingOrder.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="sfiApp.manufacturingOrder.status">Status</span></dt>
+        <dd>
+            <span>{{manufacturingOrder.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="sfiApp.manufacturingOrder.name">Name</span></dt>
+        <dd>
+            <span>{{manufacturingOrder.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'manufacturing-order/'+ manufacturingOrder.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

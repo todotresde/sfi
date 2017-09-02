@@ -7,6 +7,19 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "employee": "Employee",
+                "line": "Line",
+                "wsConfiguration": "WS Configuration",
+                "workStation": "Work Station",
+                "manufacturingOrder": "Manufacturing Order",
+                "moProduct": "MO Product",
+                "supply": "Supply",
+                "supplyType": "Supply Type",
+                "stAttribute": "ST Attribute",
+                "product": "Product",
+                "productType": "Product Type",
+                "ptAttribute": "PT Attribute",
+                "tracer": "Tracer",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

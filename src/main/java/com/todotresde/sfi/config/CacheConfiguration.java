@@ -43,6 +43,33 @@ public class CacheConfiguration {
             cm.createCache(com.todotresde.sfi.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.todotresde.sfi.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.todotresde.sfi.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Employee.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Employee.class.getName() + ".wsConfigurations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Line.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Line.class.getName() + ".wsConfigurations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WSConfiguration.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WSConfiguration.class.getName() + ".supplyTypes", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WSConfiguration.class.getName() + ".employees", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WorkStation.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.ManufacturingOrder.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.MOProduct.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Supply.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Supply.class.getName() + ".products", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.SupplyType.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.SupplyType.class.getName() + ".supplies", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.SupplyType.class.getName() + ".stAttributes", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.SupplyType.class.getName() + ".wsConfigurations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.STAttribute.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.STAttribute.class.getName() + ".supplyTypes", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Product.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Product.class.getName() + ".moProducts", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Product.class.getName() + ".supplies", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.ProductType.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.ProductType.class.getName() + ".products", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.ProductType.class.getName() + ".ptAttributes", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.PTAttribute.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.PTAttribute.class.getName() + ".productTypes", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.Tracer.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

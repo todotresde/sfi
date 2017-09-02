@@ -1,0 +1,35 @@
+{
+    "sfiApp": {
+        "tracer" : {
+            "home": {
+                "title": "Tracers",
+                "createLabel": "Criar novo Tracer",
+                "createOrEditLabel": "Criar ou editar Tracer"
+            },
+            "created": "Um novo Tracer foi criado com o identificador {{ param }}",
+            "updated": "Um Tracer foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Tracer foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Tracer {{ id }}?"
+            },
+            "detail": {
+                "title": "Tracer"
+            },
+            "code": "Code",
+            "inTime": "In Time",
+            "startTime": "Start Time",
+            "endTime": "End Time",
+            "time": "Time",
+            "status": "Status",
+            "wsConfiguration": "Ws Configuration",
+            "manufacturingOrder": "Manufacturing Order",
+            "moProduct": "Mo Product",
+            "line": "Line",
+            "workStation": "Work Station",
+            "prevWorkStation": "Prev Work Station",
+            "nextWorkStation": "Next Work Station",
+            "nextTracer": "Next Tracer",
+            "prevTracer": "Prev Tracer"
+        }
+    }
+}
