@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 import { Tracer } from './tracer.model';
 import { TracerService } from './tracer.service';
 
@@ -9,6 +10,7 @@ export class TracerPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private tracerService: TracerService
@@ -26,27 +28,12 @@ export class TracerPopupService {
 
             if (id) {
                 this.tracerService.find(id).subscribe((tracer) => {
-                    if (tracer.inTime) {
-                        tracer.inTime = {
-                            year: tracer.inTime.getFullYear(),
-                            month: tracer.inTime.getMonth() + 1,
-                            day: tracer.inTime.getDate()
-                        };
-                    }
-                    if (tracer.startTime) {
-                        tracer.startTime = {
-                            year: tracer.startTime.getFullYear(),
-                            month: tracer.startTime.getMonth() + 1,
-                            day: tracer.startTime.getDate()
-                        };
-                    }
-                    if (tracer.endTime) {
-                        tracer.endTime = {
-                            year: tracer.endTime.getFullYear(),
-                            month: tracer.endTime.getMonth() + 1,
-                            day: tracer.endTime.getDate()
-                        };
-                    }
+                    tracer.inTime = this.datePipe
+                        .transform(tracer.inTime, 'yyyy-MM-ddTHH:mm:ss');
+                    tracer.startTime = this.datePipe
+                        .transform(tracer.startTime, 'yyyy-MM-ddTHH:mm:ss');
+                    tracer.endTime = this.datePipe
+                        .transform(tracer.endTime, 'yyyy-MM-ddTHH:mm:ss');
                     this.ngbModalRef = this.tracerModalRef(component, tracer);
                     resolve(this.ngbModalRef);
                 });

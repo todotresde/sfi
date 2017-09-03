@@ -6,7 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -28,8 +28,8 @@ public class ManufacturingOrder implements Serializable {
     private String code;
 
     @NotNull
-    @Column(name = "jhi_date", nullable = false)
-    private LocalDate date;
+    @Column(name = "order_date", nullable = false)
+    private Instant orderDate;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -60,17 +60,17 @@ public class ManufacturingOrder implements Serializable {
         this.code = code;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Instant getOrderDate() {
+        return orderDate;
     }
 
-    public ManufacturingOrder date(LocalDate date) {
-        this.date = date;
+    public ManufacturingOrder orderDate(Instant orderDate) {
+        this.orderDate = orderDate;
         return this;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setOrderDate(Instant orderDate) {
+        this.orderDate = orderDate;
     }
 
     public Integer getStatus() {
@@ -125,7 +125,7 @@ public class ManufacturingOrder implements Serializable {
         return "ManufacturingOrder{" +
             "id=" + getId() +
             ", code='" + getCode() + "'" +
-            ", date='" + getDate() + "'" +
+            ", orderDate='" + getOrderDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", name='" + getName() + "'" +
             "}";

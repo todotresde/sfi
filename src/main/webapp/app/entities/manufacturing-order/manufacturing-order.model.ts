@@ -4,7 +4,7 @@ export class ManufacturingOrder implements BaseEntity {
     constructor(
         public id?: number,
         public code?: string,
-        public date?: any,
+        public orderDate?: any,
         public status?: number,
         public name?: string,
     ) {

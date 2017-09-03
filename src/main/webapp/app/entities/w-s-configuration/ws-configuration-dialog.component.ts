@@ -26,10 +26,6 @@ export class WSConfigurationDialogComponent implements OnInit {
 
     workstations: WorkStation[];
 
-    prevworkstations: WorkStation[];
-
-    nextworkstations: WorkStation[];
-
     supplytypes: SupplyType[];
 
     employees: Employee[];
@@ -50,45 +46,8 @@ export class WSConfigurationDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.workStationService
-            .query({filter: 'wsconfiguration-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.wSConfiguration.workStation || !this.wSConfiguration.workStation.id) {
-                    this.workstations = res.json;
-                } else {
-                    this.workStationService
-                        .find(this.wSConfiguration.workStation.id)
-                        .subscribe((subRes: WorkStation) => {
-                            this.workstations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.workStationService
-            .query({filter: 'wsconfiguration-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.wSConfiguration.prevWorkStation || !this.wSConfiguration.prevWorkStation.id) {
-                    this.prevworkstations = res.json;
-                } else {
-                    this.workStationService
-                        .find(this.wSConfiguration.prevWorkStation.id)
-                        .subscribe((subRes: WorkStation) => {
-                            this.prevworkstations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.workStationService
-            .query({filter: 'wsconfiguration-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.wSConfiguration.nextWorkStation || !this.wSConfiguration.nextWorkStation.id) {
-                    this.nextworkstations = res.json;
-                } else {
-                    this.workStationService
-                        .find(this.wSConfiguration.nextWorkStation.id)
-                        .subscribe((subRes: WorkStation) => {
-                            this.nextworkstations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
+        this.workStationService.query()
+            .subscribe((res: ResponseWrapper) => { this.workstations = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.supplyTypeService.query()
             .subscribe((res: ResponseWrapper) => { this.supplytypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.employeeService.query()

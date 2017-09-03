@@ -37,7 +37,7 @@ describe('MOProduct e2e test', () => {
         mOProductComponentsPage.clickOnCreateButton();
         mOProductDialogPage.setQuantityInput('5');
         expect(mOProductDialogPage.getQuantityInput()).toMatch('5');
-        mOProductDialogPage.manufacturinOrderSelectLastOption();
+        mOProductDialogPage.manufacturingOrderSelectLastOption();
         mOProductDialogPage.productSelectLastOption();
         mOProductDialogPage.save();
         expect(mOProductDialogPage.getSaveButton().isPresent()).toBeFalsy();
@@ -66,7 +66,7 @@ export class MOProductDialogPage {
     saveButton = element(by.css('.modal-footer .btn.btn-primary'));
     closeButton = element(by.css('button.close'));
     quantityInput = element(by.css('input#field_quantity'));
-    manufacturinOrderSelect = element(by.css('select#field_manufacturinOrder'));
+    manufacturingOrderSelect = element(by.css('select#field_manufacturingOrder'));
     productSelect = element(by.css('select#field_product'));
 
     getModalTitle() {
@@ -81,20 +81,20 @@ export class MOProductDialogPage {
         return this.quantityInput.getAttribute('value');
     }
 
-    manufacturinOrderSelectLastOption = function () {
-        this.manufacturinOrderSelect.all(by.tagName('option')).last().click();
+    manufacturingOrderSelectLastOption = function () {
+        this.manufacturingOrderSelect.all(by.tagName('option')).last().click();
     }
 
-    manufacturinOrderSelectOption = function (option) {
-        this.manufacturinOrderSelect.sendKeys(option);
+    manufacturingOrderSelectOption = function (option) {
+        this.manufacturingOrderSelect.sendKeys(option);
     }
 
-    getManufacturinOrderSelect = function () {
-        return this.manufacturinOrderSelect;
+    getManufacturingOrderSelect = function () {
+        return this.manufacturingOrderSelect;
     }
 
-    getManufacturinOrderSelectedOption = function () {
-        return this.manufacturinOrderSelect.element(by.css('option:checked')).getText();
+    getManufacturingOrderSelectedOption = function () {
+        return this.manufacturingOrderSelect.element(by.css('option:checked')).getText();
     }
 
     productSelectLastOption = function () {

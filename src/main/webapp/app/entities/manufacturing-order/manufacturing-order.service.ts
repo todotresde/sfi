@@ -58,14 +58,14 @@ export class ManufacturingOrderService {
     }
 
     private convertItemFromServer(entity: any) {
-        entity.date = this.dateUtils
-            .convertLocalDateFromServer(entity.date);
+        entity.orderDate = this.dateUtils
+            .convertDateTimeFromServer(entity.orderDate);
     }
 
     private convert(manufacturingOrder: ManufacturingOrder): ManufacturingOrder {
         const copy: ManufacturingOrder = Object.assign({}, manufacturingOrder);
-        copy.date = this.dateUtils
-            .convertLocalDateToServer(manufacturingOrder.date);
+
+        copy.orderDate = this.dateUtils.toDate(manufacturingOrder.orderDate);
         return copy;
     }
 }

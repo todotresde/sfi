@@ -18,7 +18,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="sfiApp.manufacturingOrder.code">Code</span></th>
-            <th><span jhiTranslate="sfiApp.manufacturingOrder.date">Date</span></th>
+            <th><span jhiTranslate="sfiApp.manufacturingOrder.orderDate">Order Date</span></th>
             <th><span jhiTranslate="sfiApp.manufacturingOrder.status">Status</span></th>
             <th><span jhiTranslate="sfiApp.manufacturingOrder.name">Name</span></th>
             <th></th>
@@ -28,7 +28,7 @@
             <tr *ngFor="let manufacturingOrder of manufacturingOrders ;trackBy: trackId">
                 <td><a [routerLink]="['../manufacturing-order', manufacturingOrder.id ]">{{manufacturingOrder.id}}</a></td>
                 <td>{{manufacturingOrder.code}}</td>
-                <td>{{manufacturingOrder.date | date:'mediumDate'}}</td>
+                <td>{{manufacturingOrder.orderDate | date:'medium'}}</td>
                 <td>{{manufacturingOrder.status}}</td>
                 <td>{{manufacturingOrder.name}}</td>
                 <td class="text-right">

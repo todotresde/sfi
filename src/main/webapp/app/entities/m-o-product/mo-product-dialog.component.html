@@ -15,19 +15,29 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="sfiApp.mOProduct.quantity" for="field_quantity">Quantity</label>
             <input type="number" class="form-control" name="quantity" id="field_quantity"
-                [(ngModel)]="mOProduct.quantity"  />
+                [(ngModel)]="mOProduct.quantity" required />
+            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.quantity?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="sfiApp.mOProduct.manufacturinOrder" for="field_manufacturinOrder">Manufacturin Order</label>
-            <select class="form-control" id="field_manufacturinOrder" name="manufacturinOrder" [(ngModel)]="mOProduct.manufacturinOrder" required>
-                <option *ngIf="!editForm.value.manufacturinOrder" [ngValue]="null" selected></option>
-                <option [ngValue]="manufacturingOrderOption.id === mOProduct.manufacturinOrder?.id ? mOProduct.manufacturinOrder : manufacturingOrderOption" *ngFor="let manufacturingOrderOption of manufacturinorders; trackBy: trackManufacturingOrderById">{{manufacturingOrderOption.id}}</option>
+            <label class="form-control-label" jhiTranslate="sfiApp.mOProduct.manufacturingOrder" for="field_manufacturingOrder">Manufacturing Order</label>
+            <select class="form-control" id="field_manufacturingOrder" name="manufacturingOrder" [(ngModel)]="mOProduct.manufacturingOrder"  required>
+                <option *ngIf="!editForm.value.manufacturingOrder" [ngValue]="null" selected></option>
+                <option [ngValue]="manufacturingOrderOption.id === mOProduct.manufacturingOrder?.id ? mOProduct.manufacturingOrder : manufacturingOrderOption" *ngFor="let manufacturingOrderOption of manufacturingorders; trackBy: trackManufacturingOrderById">{{manufacturingOrderOption.id}}</option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.manufacturinOrder?.dirty && editForm.controls.manufacturinOrder?.invalid)">
+        <div [hidden]="!(editForm.controls.manufacturingOrder?.dirty && editForm.controls.manufacturingOrder?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!editForm.controls.manufacturinOrder?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.manufacturingOrder?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

@@ -22,13 +22,13 @@ public class MOProduct implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "quantity")
+    @NotNull
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
-    private ManufacturingOrder manufacturinOrder;
+    private ManufacturingOrder manufacturingOrder;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -56,17 +56,17 @@ public class MOProduct implements Serializable {
         this.quantity = quantity;
     }
 
-    public ManufacturingOrder getManufacturinOrder() {
-        return manufacturinOrder;
+    public ManufacturingOrder getManufacturingOrder() {
+        return manufacturingOrder;
     }
 
-    public MOProduct manufacturinOrder(ManufacturingOrder manufacturingOrder) {
-        this.manufacturinOrder = manufacturingOrder;
+    public MOProduct manufacturingOrder(ManufacturingOrder manufacturingOrder) {
+        this.manufacturingOrder = manufacturingOrder;
         return this;
     }
 
-    public void setManufacturinOrder(ManufacturingOrder manufacturingOrder) {
-        this.manufacturinOrder = manufacturingOrder;
+    public void setManufacturingOrder(ManufacturingOrder manufacturingOrder) {
+        this.manufacturingOrder = manufacturingOrder;
     }
 
     public Product getProduct() {

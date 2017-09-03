@@ -10,8 +10,8 @@
             ]
         },
         {
-            "fieldName": "date",
-            "fieldType": "LocalDate",
+            "fieldName": "orderDate",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]

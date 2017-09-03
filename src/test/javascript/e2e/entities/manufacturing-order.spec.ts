@@ -37,8 +37,8 @@ describe('ManufacturingOrder e2e test', () => {
         manufacturingOrderComponentsPage.clickOnCreateButton();
         manufacturingOrderDialogPage.setCodeInput('code');
         expect(manufacturingOrderDialogPage.getCodeInput()).toMatch('code');
-        manufacturingOrderDialogPage.setDateInput('2000-12-31');
-        expect(manufacturingOrderDialogPage.getDateInput()).toMatch('2000-12-31');
+        manufacturingOrderDialogPage.setOrderDateInput(12310020012301);
+        expect(manufacturingOrderDialogPage.getOrderDateInput()).toMatch('2001-12-31T02:30');
         manufacturingOrderDialogPage.setStatusInput('5');
         expect(manufacturingOrderDialogPage.getStatusInput()).toMatch('5');
         manufacturingOrderDialogPage.setNameInput('name');
@@ -70,7 +70,7 @@ export class ManufacturingOrderDialogPage {
     saveButton = element(by.css('.modal-footer .btn.btn-primary'));
     closeButton = element(by.css('button.close'));
     codeInput = element(by.css('input#field_code'));
-    dateInput = element(by.css('input#field_date'));
+    orderDateInput = element(by.css('input#field_orderDate'));
     statusInput = element(by.css('input#field_status'));
     nameInput = element(by.css('input#field_name'));
 
@@ -86,12 +86,12 @@ export class ManufacturingOrderDialogPage {
         return this.codeInput.getAttribute('value');
     }
 
-    setDateInput = function (date) {
-        this.dateInput.sendKeys(date);
+    setOrderDateInput = function (orderDate) {
+        this.orderDateInput.sendKeys(orderDate);
     }
 
-    getDateInput = function () {
-        return this.dateInput.getAttribute('value');
+    getOrderDateInput = function () {
+        return this.orderDateInput.getAttribute('value');
     }
 
     setStatusInput = function (status) {

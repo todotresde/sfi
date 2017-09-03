@@ -125,6 +125,24 @@ public class STAttributeResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = sTAttributeRepository.findAll().size();
+        // set the field null
+        sTAttribute.setName(null);
+
+        // Create the STAttribute, which fails.
+
+        restSTAttributeMockMvc.perform(post("/api/s-t-attributes")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(sTAttribute)))
+            .andExpect(status().isBadRequest());
+
+        List<STAttribute> sTAttributeList = sTAttributeRepository.findAll();
+        assertThat(sTAttributeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllSTAttributes() throws Exception {
         // Initialize the database
         sTAttributeRepository.saveAndFlush(sTAttribute);

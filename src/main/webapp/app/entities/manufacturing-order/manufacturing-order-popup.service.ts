@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 import { ManufacturingOrder } from './manufacturing-order.model';
 import { ManufacturingOrderService } from './manufacturing-order.service';
 
@@ -9,6 +10,7 @@ export class ManufacturingOrderPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private manufacturingOrderService: ManufacturingOrderService
@@ -26,13 +28,8 @@ export class ManufacturingOrderPopupService {
 
             if (id) {
                 this.manufacturingOrderService.find(id).subscribe((manufacturingOrder) => {
-                    if (manufacturingOrder.date) {
-                        manufacturingOrder.date = {
-                            year: manufacturingOrder.date.getFullYear(),
-                            month: manufacturingOrder.date.getMonth() + 1,
-                            day: manufacturingOrder.date.getDate()
-                        };
-                    }
+                    manufacturingOrder.orderDate = this.datePipe
+                        .transform(manufacturingOrder.orderDate, 'yyyy-MM-ddTHH:mm:ss');
                     this.ngbModalRef = this.manufacturingOrderModalRef(component, manufacturingOrder);
                     resolve(this.ngbModalRef);
                 });

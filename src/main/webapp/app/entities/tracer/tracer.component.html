@@ -39,9 +39,9 @@
             <tr *ngFor="let tracer of tracers ;trackBy: trackId">
                 <td><a [routerLink]="['../tracer', tracer.id ]">{{tracer.id}}</a></td>
                 <td>{{tracer.code}}</td>
-                <td>{{tracer.inTime | date:'mediumDate'}}</td>
-                <td>{{tracer.startTime | date:'mediumDate'}}</td>
-                <td>{{tracer.endTime | date:'mediumDate'}}</td>
+                <td>{{tracer.inTime | date:'medium'}}</td>
+                <td>{{tracer.startTime | date:'medium'}}</td>
+                <td>{{tracer.endTime | date:'medium'}}</td>
                 <td>{{tracer.time}}</td>
                 <td>{{tracer.status}}</td>
                 <td>

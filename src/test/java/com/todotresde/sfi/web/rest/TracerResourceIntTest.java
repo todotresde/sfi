@@ -26,8 +26,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,14 +47,14 @@ public class TracerResourceIntTest {
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_IN_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_IN_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_IN_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_IN_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_START_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_START_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_START_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_START_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_END_TIME = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_END_TIME = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_END_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_END_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Integer DEFAULT_TIME = 1;
     private static final Integer UPDATED_TIME = 2;
@@ -186,6 +186,42 @@ public class TracerResourceIntTest {
         int databaseSizeBeforeTest = tracerRepository.findAll().size();
         // set the field null
         tracer.setCode(null);
+
+        // Create the Tracer, which fails.
+
+        restTracerMockMvc.perform(post("/api/tracers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(tracer)))
+            .andExpect(status().isBadRequest());
+
+        List<Tracer> tracerList = tracerRepository.findAll();
+        assertThat(tracerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkInTimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = tracerRepository.findAll().size();
+        // set the field null
+        tracer.setInTime(null);
+
+        // Create the Tracer, which fails.
+
+        restTracerMockMvc.perform(post("/api/tracers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(tracer)))
+            .andExpect(status().isBadRequest());
+
+        List<Tracer> tracerList = tracerRepository.findAll();
+        assertThat(tracerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = tracerRepository.findAll().size();
+        // set the field null
+        tracer.setStatus(null);
 
         // Create the Tracer, which fails.
 

@@ -35,16 +35,7 @@ export class TracerDialogComponent implements OnInit {
 
     workstations: WorkStation[];
 
-    prevworkstations: WorkStation[];
-
-    nextworkstations: WorkStation[];
-
-    nexttracers: Tracer[];
-
-    prevtracers: Tracer[];
-    inTimeDp: any;
-    startTimeDp: any;
-    endTimeDp: any;
+    tracers: Tracer[];
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -61,123 +52,18 @@ export class TracerDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.wSConfigurationService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.wsConfiguration || !this.tracer.wsConfiguration.id) {
-                    this.wsconfigurations = res.json;
-                } else {
-                    this.wSConfigurationService
-                        .find(this.tracer.wsConfiguration.id)
-                        .subscribe((subRes: WSConfiguration) => {
-                            this.wsconfigurations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.manufacturingOrderService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.manufacturingOrder || !this.tracer.manufacturingOrder.id) {
-                    this.manufacturingorders = res.json;
-                } else {
-                    this.manufacturingOrderService
-                        .find(this.tracer.manufacturingOrder.id)
-                        .subscribe((subRes: ManufacturingOrder) => {
-                            this.manufacturingorders = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.mOProductService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.moProduct || !this.tracer.moProduct.id) {
-                    this.moproducts = res.json;
-                } else {
-                    this.mOProductService
-                        .find(this.tracer.moProduct.id)
-                        .subscribe((subRes: MOProduct) => {
-                            this.moproducts = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.lineService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.line || !this.tracer.line.id) {
-                    this.lines = res.json;
-                } else {
-                    this.lineService
-                        .find(this.tracer.line.id)
-                        .subscribe((subRes: Line) => {
-                            this.lines = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.workStationService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.workStation || !this.tracer.workStation.id) {
-                    this.workstations = res.json;
-                } else {
-                    this.workStationService
-                        .find(this.tracer.workStation.id)
-                        .subscribe((subRes: WorkStation) => {
-                            this.workstations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.workStationService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.prevWorkStation || !this.tracer.prevWorkStation.id) {
-                    this.prevworkstations = res.json;
-                } else {
-                    this.workStationService
-                        .find(this.tracer.prevWorkStation.id)
-                        .subscribe((subRes: WorkStation) => {
-                            this.prevworkstations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.workStationService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.nextWorkStation || !this.tracer.nextWorkStation.id) {
-                    this.nextworkstations = res.json;
-                } else {
-                    this.workStationService
-                        .find(this.tracer.nextWorkStation.id)
-                        .subscribe((subRes: WorkStation) => {
-                            this.nextworkstations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.tracerService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.nextTracer || !this.tracer.nextTracer.id) {
-                    this.nexttracers = res.json;
-                } else {
-                    this.tracerService
-                        .find(this.tracer.nextTracer.id)
-                        .subscribe((subRes: Tracer) => {
-                            this.nexttracers = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
-        this.tracerService
-            .query({filter: 'tracer-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.tracer.prevTracer || !this.tracer.prevTracer.id) {
-                    this.prevtracers = res.json;
-                } else {
-                    this.tracerService
-                        .find(this.tracer.prevTracer.id)
-                        .subscribe((subRes: Tracer) => {
-                            this.prevtracers = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
+        this.wSConfigurationService.query()
+            .subscribe((res: ResponseWrapper) => { this.wsconfigurations = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.manufacturingOrderService.query()
+            .subscribe((res: ResponseWrapper) => { this.manufacturingorders = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.mOProductService.query()
+            .subscribe((res: ResponseWrapper) => { this.moproducts = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.lineService.query()
+            .subscribe((res: ResponseWrapper) => { this.lines = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.workStationService.query()
+            .subscribe((res: ResponseWrapper) => { this.workstations = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.tracerService.query()
+            .subscribe((res: ResponseWrapper) => { this.tracers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {

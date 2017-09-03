@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -42,7 +43,7 @@ public class STAttributeResource {
      */
     @PostMapping("/s-t-attributes")
     @Timed
-    public ResponseEntity<STAttribute> createSTAttribute(@RequestBody STAttribute sTAttribute) throws URISyntaxException {
+    public ResponseEntity<STAttribute> createSTAttribute(@Valid @RequestBody STAttribute sTAttribute) throws URISyntaxException {
         log.debug("REST request to save STAttribute : {}", sTAttribute);
         if (sTAttribute.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new sTAttribute cannot already have an ID")).body(null);
@@ -64,7 +65,7 @@ public class STAttributeResource {
      */
     @PutMapping("/s-t-attributes")
     @Timed
-    public ResponseEntity<STAttribute> updateSTAttribute(@RequestBody STAttribute sTAttribute) throws URISyntaxException {
+    public ResponseEntity<STAttribute> updateSTAttribute(@Valid @RequestBody STAttribute sTAttribute) throws URISyntaxException {
         log.debug("REST request to update STAttribute : {}", sTAttribute);
         if (sTAttribute.getId() == null) {
             return createSTAttribute(sTAttribute);

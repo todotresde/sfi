@@ -37,12 +37,12 @@ describe('Tracer e2e test', () => {
         tracerComponentsPage.clickOnCreateButton();
         tracerDialogPage.setCodeInput('code');
         expect(tracerDialogPage.getCodeInput()).toMatch('code');
-        tracerDialogPage.setInTimeInput('2000-12-31');
-        expect(tracerDialogPage.getInTimeInput()).toMatch('2000-12-31');
-        tracerDialogPage.setStartTimeInput('2000-12-31');
-        expect(tracerDialogPage.getStartTimeInput()).toMatch('2000-12-31');
-        tracerDialogPage.setEndTimeInput('2000-12-31');
-        expect(tracerDialogPage.getEndTimeInput()).toMatch('2000-12-31');
+        tracerDialogPage.setInTimeInput(12310020012301);
+        expect(tracerDialogPage.getInTimeInput()).toMatch('2001-12-31T02:30');
+        tracerDialogPage.setStartTimeInput(12310020012301);
+        expect(tracerDialogPage.getStartTimeInput()).toMatch('2001-12-31T02:30');
+        tracerDialogPage.setEndTimeInput(12310020012301);
+        expect(tracerDialogPage.getEndTimeInput()).toMatch('2001-12-31T02:30');
         tracerDialogPage.setTimeInput('5');
         expect(tracerDialogPage.getTimeInput()).toMatch('5');
         tracerDialogPage.setStatusInput('5');

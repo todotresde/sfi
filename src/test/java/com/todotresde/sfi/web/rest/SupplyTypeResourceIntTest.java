@@ -125,6 +125,24 @@ public class SupplyTypeResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = supplyTypeRepository.findAll().size();
+        // set the field null
+        supplyType.setName(null);
+
+        // Create the SupplyType, which fails.
+
+        restSupplyTypeMockMvc.perform(post("/api/supply-types")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(supplyType)))
+            .andExpect(status().isBadRequest());
+
+        List<SupplyType> supplyTypeList = supplyTypeRepository.findAll();
+        assertThat(supplyTypeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllSupplyTypes() throws Exception {
         // Initialize the database
         supplyTypeRepository.saveAndFlush(supplyType);

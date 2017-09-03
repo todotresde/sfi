@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -42,7 +43,7 @@ public class SupplyTypeResource {
      */
     @PostMapping("/supply-types")
     @Timed
-    public ResponseEntity<SupplyType> createSupplyType(@RequestBody SupplyType supplyType) throws URISyntaxException {
+    public ResponseEntity<SupplyType> createSupplyType(@Valid @RequestBody SupplyType supplyType) throws URISyntaxException {
         log.debug("REST request to save SupplyType : {}", supplyType);
         if (supplyType.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new supplyType cannot already have an ID")).body(null);
@@ -64,7 +65,7 @@ public class SupplyTypeResource {
      */
     @PutMapping("/supply-types")
     @Timed
-    public ResponseEntity<SupplyType> updateSupplyType(@RequestBody SupplyType supplyType) throws URISyntaxException {
+    public ResponseEntity<SupplyType> updateSupplyType(@Valid @RequestBody SupplyType supplyType) throws URISyntaxException {
         log.debug("REST request to update SupplyType : {}", supplyType);
         if (supplyType.getId() == null) {
             return createSupplyType(supplyType);

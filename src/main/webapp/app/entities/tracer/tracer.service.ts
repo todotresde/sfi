@@ -59,21 +59,21 @@ export class TracerService {
 
     private convertItemFromServer(entity: any) {
         entity.inTime = this.dateUtils
-            .convertLocalDateFromServer(entity.inTime);
+            .convertDateTimeFromServer(entity.inTime);
         entity.startTime = this.dateUtils
-            .convertLocalDateFromServer(entity.startTime);
+            .convertDateTimeFromServer(entity.startTime);
         entity.endTime = this.dateUtils
-            .convertLocalDateFromServer(entity.endTime);
+            .convertDateTimeFromServer(entity.endTime);
     }
 
     private convert(tracer: Tracer): Tracer {
         const copy: Tracer = Object.assign({}, tracer);
-        copy.inTime = this.dateUtils
-            .convertLocalDateToServer(tracer.inTime);
-        copy.startTime = this.dateUtils
-            .convertLocalDateToServer(tracer.startTime);
-        copy.endTime = this.dateUtils
-            .convertLocalDateToServer(tracer.endTime);
+
+        copy.inTime = this.dateUtils.toDate(tracer.inTime);
+
+        copy.startTime = this.dateUtils.toDate(tracer.startTime);
+
+        copy.endTime = this.dateUtils.toDate(tracer.endTime);
         return copy;
     }
 }

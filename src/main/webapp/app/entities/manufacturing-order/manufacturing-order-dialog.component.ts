@@ -18,7 +18,6 @@ export class ManufacturingOrderDialogComponent implements OnInit {
 
     manufacturingOrder: ManufacturingOrder;
     isSaving: boolean;
-    dateDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

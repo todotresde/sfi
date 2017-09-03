@@ -125,6 +125,24 @@ public class PTAttributeResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = pTAttributeRepository.findAll().size();
+        // set the field null
+        pTAttribute.setName(null);
+
+        // Create the PTAttribute, which fails.
+
+        restPTAttributeMockMvc.perform(post("/api/p-t-attributes")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pTAttribute)))
+            .andExpect(status().isBadRequest());
+
+        List<PTAttribute> pTAttributeList = pTAttributeRepository.findAll();
+        assertThat(pTAttributeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPTAttributes() throws Exception {
         // Initialize the database
         pTAttributeRepository.saveAndFlush(pTAttribute);

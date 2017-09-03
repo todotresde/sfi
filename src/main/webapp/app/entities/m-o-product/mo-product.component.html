@@ -18,7 +18,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="sfiApp.mOProduct.quantity">Quantity</span></th>
-            <th><span jhiTranslate="sfiApp.mOProduct.manufacturinOrder">Manufacturin Order</span></th>
+            <th><span jhiTranslate="sfiApp.mOProduct.manufacturingOrder">Manufacturing Order</span></th>
             <th><span jhiTranslate="sfiApp.mOProduct.product">Product</span></th>
             <th></th>
             </tr>
@@ -28,8 +28,8 @@
                 <td><a [routerLink]="['../mo-product', mOProduct.id ]">{{mOProduct.id}}</a></td>
                 <td>{{mOProduct.quantity}}</td>
                 <td>
-                    <div *ngIf="mOProduct.manufacturinOrder">
-                        <a [routerLink]="['../manufacturing-order', mOProduct.manufacturinOrder?.id ]" >{{mOProduct.manufacturinOrder?.id}}</a>
+                    <div *ngIf="mOProduct.manufacturingOrder">
+                        <a [routerLink]="['../manufacturing-order', mOProduct.manufacturingOrder?.id ]" >{{mOProduct.manufacturingOrder?.id}}</a>
                     </div>
                 </td>
                 <td>

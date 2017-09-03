@@ -2,81 +2,63 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "wsConfiguration",
             "otherEntityName": "wSConfiguration",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "manufacturingOrder",
             "otherEntityName": "manufacturingOrder",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "moProduct",
             "otherEntityName": "mOProduct",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "line",
             "otherEntityName": "line",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "workStation",
             "otherEntityName": "workStation",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "prevWorkStation",
             "otherEntityName": "workStation",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "nextWorkStation",
             "otherEntityName": "workStation",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "nextTracer",
             "otherEntityName": "tracer",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "prevTracer",
             "otherEntityName": "tracer",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "tracer"
+            "otherEntityField": "id"
         }
     ],
     "fields": [
@@ -89,15 +71,18 @@
         },
         {
             "fieldName": "inTime",
-            "fieldType": "LocalDate"
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "startTime",
-            "fieldType": "LocalDate"
+            "fieldType": "Instant"
         },
         {
             "fieldName": "endTime",
-            "fieldType": "LocalDate"
+            "fieldType": "Instant"
         },
         {
             "fieldName": "time",
@@ -105,7 +90,10 @@
         },
         {
             "fieldName": "status",
-            "fieldType": "Integer"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170828092726",

@@ -21,8 +21,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,8 +42,8 @@ public class ManufacturingOrderResourceIntTest {
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_ORDER_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_ORDER_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Integer DEFAULT_STATUS = 1;
     private static final Integer UPDATED_STATUS = 2;
@@ -89,7 +89,7 @@ public class ManufacturingOrderResourceIntTest {
     public static ManufacturingOrder createEntity(EntityManager em) {
         ManufacturingOrder manufacturingOrder = new ManufacturingOrder()
             .code(DEFAULT_CODE)
-            .date(DEFAULT_DATE)
+            .orderDate(DEFAULT_ORDER_DATE)
             .status(DEFAULT_STATUS)
             .name(DEFAULT_NAME);
         return manufacturingOrder;
@@ -116,7 +116,7 @@ public class ManufacturingOrderResourceIntTest {
         assertThat(manufacturingOrderList).hasSize(databaseSizeBeforeCreate + 1);
         ManufacturingOrder testManufacturingOrder = manufacturingOrderList.get(manufacturingOrderList.size() - 1);
         assertThat(testManufacturingOrder.getCode()).isEqualTo(DEFAULT_CODE);
-        assertThat(testManufacturingOrder.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testManufacturingOrder.getOrderDate()).isEqualTo(DEFAULT_ORDER_DATE);
         assertThat(testManufacturingOrder.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testManufacturingOrder.getName()).isEqualTo(DEFAULT_NAME);
     }
@@ -160,10 +160,10 @@ public class ManufacturingOrderResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDateIsRequired() throws Exception {
+    public void checkOrderDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = manufacturingOrderRepository.findAll().size();
         // set the field null
-        manufacturingOrder.setDate(null);
+        manufacturingOrder.setOrderDate(null);
 
         // Create the ManufacturingOrder, which fails.
 
@@ -206,7 +206,7 @@ public class ManufacturingOrderResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(manufacturingOrder.getId().intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].orderDate").value(hasItem(DEFAULT_ORDER_DATE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
@@ -223,7 +223,7 @@ public class ManufacturingOrderResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(manufacturingOrder.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.orderDate").value(DEFAULT_ORDER_DATE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
@@ -247,7 +247,7 @@ public class ManufacturingOrderResourceIntTest {
         ManufacturingOrder updatedManufacturingOrder = manufacturingOrderRepository.findOne(manufacturingOrder.getId());
         updatedManufacturingOrder
             .code(UPDATED_CODE)
-            .date(UPDATED_DATE)
+            .orderDate(UPDATED_ORDER_DATE)
             .status(UPDATED_STATUS)
             .name(UPDATED_NAME);
 
@@ -261,7 +261,7 @@ public class ManufacturingOrderResourceIntTest {
         assertThat(manufacturingOrderList).hasSize(databaseSizeBeforeUpdate);
         ManufacturingOrder testManufacturingOrder = manufacturingOrderList.get(manufacturingOrderList.size() - 1);
         assertThat(testManufacturingOrder.getCode()).isEqualTo(UPDATED_CODE);
-        assertThat(testManufacturingOrder.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testManufacturingOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testManufacturingOrder.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testManufacturingOrder.getName()).isEqualTo(UPDATED_NAME);
     }

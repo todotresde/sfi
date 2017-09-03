@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -42,7 +43,7 @@ public class ProductTypeResource {
      */
     @PostMapping("/product-types")
     @Timed
-    public ResponseEntity<ProductType> createProductType(@RequestBody ProductType productType) throws URISyntaxException {
+    public ResponseEntity<ProductType> createProductType(@Valid @RequestBody ProductType productType) throws URISyntaxException {
         log.debug("REST request to save ProductType : {}", productType);
         if (productType.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new productType cannot already have an ID")).body(null);
@@ -64,7 +65,7 @@ public class ProductTypeResource {
      */
     @PutMapping("/product-types")
     @Timed
-    public ResponseEntity<ProductType> updateProductType(@RequestBody ProductType productType) throws URISyntaxException {
+    public ResponseEntity<ProductType> updateProductType(@Valid @RequestBody ProductType productType) throws URISyntaxException {
         log.debug("REST request to update ProductType : {}", productType);
         if (productType.getId() == null) {
             return createProductType(productType);

@@ -16,7 +16,7 @@
                 "title": "Manufacturing Order"
             },
             "code": "Code",
-            "date": "Date",
+            "orderDate": "Order Date",
             "status": "Status",
             "name": "Name"
         }

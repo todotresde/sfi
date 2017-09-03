@@ -22,50 +22,50 @@ entity WorkStation{
 
 entity ManufacturingOrder{
     code String required,
-    date LocalDate required,
+    orderDate Instant required,
     status Integer required,
     name String
 }
 
 entity MOProduct{
-    quantity Integer
+    quantity Integer required
     
 }
 
 entity Supply{
-    name String
+    name String required
 }
 
 entity SupplyType{
-    name String
+    name String required
 }
 
 entity STAttribute{
-    name String
+    name String required
 }
 
 entity Product{
-    name String
+    name String required
 }
 
 entity ProductType{
-    name String
+    name String required
 }
 
 entity PTAttribute{
-    name String
+    name String required
 }
 
 entity Tracer{
     code String required, 
-    inTime LocalDate,
-    startTime LocalDate,
-    endTime LocalDate,
+    inTime Instant required,
+    startTime Instant,
+    endTime Instant,
     time Integer,
-    status Integer
+    status Integer required
 }
 
-relationship OneToOne {
+relationship ManyToOne {
     Tracer{wsConfiguration required} to WSConfiguration,
     Tracer{manufacturingOrder required} to ManufacturingOrder,
     Tracer{moProduct required} to MOProduct,
@@ -75,7 +75,7 @@ relationship OneToOne {
     Tracer{nextWorkStation} to WorkStation,
     Tracer{nextTracer} to Tracer,
     Tracer{prevTracer} to Tracer,
-    MOProduct{manufacturinOrder required} to ManufacturingOrder,
+    MOProduct{manufacturingOrder required} to ManufacturingOrder,
     WSConfiguration{workStation required} to WorkStation,
     WSConfiguration{prevWorkStation} to WorkStation,
     WSConfiguration{nextWorkStation} to WorkStation

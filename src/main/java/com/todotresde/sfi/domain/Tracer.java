@@ -6,7 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -27,60 +27,53 @@ public class Tracer implements Serializable {
     @Column(name = "code", nullable = false)
     private String code;
 
-    @Column(name = "in_time")
-    private LocalDate inTime;
+    @NotNull
+    @Column(name = "in_time", nullable = false)
+    private Instant inTime;
 
     @Column(name = "start_time")
-    private LocalDate startTime;
+    private Instant startTime;
 
     @Column(name = "end_time")
-    private LocalDate endTime;
+    private Instant endTime;
 
     @Column(name = "jhi_time")
     private Integer time;
 
-    @Column(name = "status")
+    @NotNull
+    @Column(name = "status", nullable = false)
     private Integer status;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private WSConfiguration wsConfiguration;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private ManufacturingOrder manufacturingOrder;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private MOProduct moProduct;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private Line line;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private WorkStation workStation;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private WorkStation prevWorkStation;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private WorkStation nextWorkStation;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private Tracer nextTracer;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private Tracer prevTracer;
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
@@ -105,42 +98,42 @@ public class Tracer implements Serializable {
         this.code = code;
     }
 
-    public LocalDate getInTime() {
+    public Instant getInTime() {
         return inTime;
     }
 
-    public Tracer inTime(LocalDate inTime) {
+    public Tracer inTime(Instant inTime) {
         this.inTime = inTime;
         return this;
     }
 
-    public void setInTime(LocalDate inTime) {
+    public void setInTime(Instant inTime) {
         this.inTime = inTime;
     }
 
-    public LocalDate getStartTime() {
+    public Instant getStartTime() {
         return startTime;
     }
 
-    public Tracer startTime(LocalDate startTime) {
+    public Tracer startTime(Instant startTime) {
         this.startTime = startTime;
         return this;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(Instant startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public Instant getEndTime() {
         return endTime;
     }
 
-    public Tracer endTime(LocalDate endTime) {
+    public Tracer endTime(Instant endTime) {
         this.endTime = endTime;
         return this;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(Instant endTime) {
         this.endTime = endTime;
     }
 

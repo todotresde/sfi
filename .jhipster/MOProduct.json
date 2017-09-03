@@ -2,13 +2,11 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
-            "relationshipName": "manufacturinOrder",
+            "relationshipName": "manufacturingOrder",
             "otherEntityName": "manufacturingOrder",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "mOProduct"
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
@@ -21,7 +19,10 @@
     "fields": [
         {
             "fieldName": "quantity",
-            "fieldType": "Integer"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170828092719",

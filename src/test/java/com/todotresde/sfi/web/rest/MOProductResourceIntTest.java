@@ -81,10 +81,10 @@ public class MOProductResourceIntTest {
         MOProduct mOProduct = new MOProduct()
             .quantity(DEFAULT_QUANTITY);
         // Add required entity
-        ManufacturingOrder manufacturinOrder = ManufacturingOrderResourceIntTest.createEntity(em);
-        em.persist(manufacturinOrder);
+        ManufacturingOrder manufacturingOrder = ManufacturingOrderResourceIntTest.createEntity(em);
+        em.persist(manufacturingOrder);
         em.flush();
-        mOProduct.setManufacturinOrder(manufacturinOrder);
+        mOProduct.setManufacturingOrder(manufacturingOrder);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -133,6 +133,24 @@ public class MOProductResourceIntTest {
         // Validate the Alice in the database
         List<MOProduct> mOProductList = mOProductRepository.findAll();
         assertThat(mOProductList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkQuantityIsRequired() throws Exception {
+        int databaseSizeBeforeTest = mOProductRepository.findAll().size();
+        // set the field null
+        mOProduct.setQuantity(null);
+
+        // Create the MOProduct, which fails.
+
+        restMOProductMockMvc.perform(post("/api/m-o-products")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(mOProduct)))
+            .andExpect(status().isBadRequest());
+
+        List<MOProduct> mOProductList = mOProductRepository.findAll();
+        assertThat(mOProductList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

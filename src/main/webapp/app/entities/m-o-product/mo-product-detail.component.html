@@ -8,10 +8,10 @@
         <dd>
             <span>{{mOProduct.quantity}}</span>
         </dd>
-        <dt><span jhiTranslate="sfiApp.mOProduct.manufacturinOrder">Manufacturin Order</span></dt>
+        <dt><span jhiTranslate="sfiApp.mOProduct.manufacturingOrder">Manufacturing Order</span></dt>
         <dd>
-            <div *ngIf="mOProduct.manufacturinOrder">
-                <a [routerLink]="['/manufacturing-order', mOProduct.manufacturinOrder?.id]">{{mOProduct.manufacturinOrder?.id}}</a>
+            <div *ngIf="mOProduct.manufacturingOrder">
+                <a [routerLink]="['/manufacturing-order', mOProduct.manufacturingOrder?.id]">{{mOProduct.manufacturingOrder?.id}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="sfiApp.mOProduct.product">Product</span></dt>

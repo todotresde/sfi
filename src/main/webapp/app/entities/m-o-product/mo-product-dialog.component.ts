@@ -22,7 +22,7 @@ export class MOProductDialogComponent implements OnInit {
     mOProduct: MOProduct;
     isSaving: boolean;
 
-    manufacturinorders: ManufacturingOrder[];
+    manufacturingorders: ManufacturingOrder[];
 
     products: Product[];
 
@@ -38,19 +38,8 @@ export class MOProductDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.manufacturingOrderService
-            .query({filter: 'moproduct-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.mOProduct.manufacturinOrder || !this.mOProduct.manufacturinOrder.id) {
-                    this.manufacturinorders = res.json;
-                } else {
-                    this.manufacturingOrderService
-                        .find(this.mOProduct.manufacturinOrder.id)
-                        .subscribe((subRes: ManufacturingOrder) => {
-                            this.manufacturinorders = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
+        this.manufacturingOrderService.query()
+            .subscribe((res: ResponseWrapper) => { this.manufacturingorders = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.productService.query()
             .subscribe((res: ResponseWrapper) => { this.products = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }

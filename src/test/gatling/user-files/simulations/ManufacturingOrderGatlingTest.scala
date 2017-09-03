@@ -68,7 +68,7 @@ class ManufacturingOrderGatlingTest extends Simulation {
             .exec(http("Create new manufacturingOrder")
             .post("/api/manufacturing-orders")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "code":"SAMPLE_TEXT", "date":"2020-01-01T00:00:00.000Z", "status":"0", "name":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "code":"SAMPLE_TEXT", "orderDate":"2020-01-01T00:00:00.000Z", "status":"0", "name":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_manufacturingOrder_url"))).exitHereIfFailed
             .pause(10)

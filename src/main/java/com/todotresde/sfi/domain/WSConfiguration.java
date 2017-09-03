@@ -30,17 +30,14 @@ public class WSConfiguration implements Serializable {
     @Column(name = "last")
     private Boolean last;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private WorkStation workStation;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private WorkStation prevWorkStation;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private WorkStation nextWorkStation;
 
     @ManyToMany

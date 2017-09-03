@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="sfiApp.wSConfiguration.workStation" for="field_workStation">Work Station</label>
-            <select class="form-control" id="field_workStation" name="workStation" [(ngModel)]="wSConfiguration.workStation" required>
+            <select class="form-control" id="field_workStation" name="workStation" [(ngModel)]="wSConfiguration.workStation"  required>
                 <option *ngIf="!editForm.value.workStation" [ngValue]="null" selected></option>
                 <option [ngValue]="workStationOption.id === wSConfiguration.workStation?.id ? wSConfiguration.workStation : workStationOption" *ngFor="let workStationOption of workstations; trackBy: trackWorkStationById">{{workStationOption.id}}</option>
             </select>
@@ -38,16 +38,16 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="sfiApp.wSConfiguration.prevWorkStation" for="field_prevWorkStation">Prev Work Station</label>
-            <select class="form-control" id="field_prevWorkStation" name="prevWorkStation" [(ngModel)]="wSConfiguration.prevWorkStation">
+            <select class="form-control" id="field_prevWorkStation" name="prevWorkStation" [(ngModel)]="wSConfiguration.prevWorkStation" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="workStationOption.id === wSConfiguration.prevWorkStation?.id ? wSConfiguration.prevWorkStation : workStationOption" *ngFor="let workStationOption of prevworkstations; trackBy: trackWorkStationById">{{workStationOption.id}}</option>
+                <option [ngValue]="workStationOption.id === wSConfiguration.prevWorkStation?.id ? wSConfiguration.prevWorkStation : workStationOption" *ngFor="let workStationOption of workstations; trackBy: trackWorkStationById">{{workStationOption.id}}</option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="sfiApp.wSConfiguration.nextWorkStation" for="field_nextWorkStation">Next Work Station</label>
-            <select class="form-control" id="field_nextWorkStation" name="nextWorkStation" [(ngModel)]="wSConfiguration.nextWorkStation">
+            <select class="form-control" id="field_nextWorkStation" name="nextWorkStation" [(ngModel)]="wSConfiguration.nextWorkStation" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="workStationOption.id === wSConfiguration.nextWorkStation?.id ? wSConfiguration.nextWorkStation : workStationOption" *ngFor="let workStationOption of nextworkstations; trackBy: trackWorkStationById">{{workStationOption.id}}</option>
+                <option [ngValue]="workStationOption.id === wSConfiguration.nextWorkStation?.id ? wSConfiguration.nextWorkStation : workStationOption" *ngFor="let workStationOption of workstations; trackBy: trackWorkStationById">{{workStationOption.id}}</option>
             </select>
         </div>
         <div class="form-group">

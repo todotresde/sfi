@@ -16,7 +16,7 @@
                 "title": "MO Product"
             },
             "quantity": "Quantity",
-            "manufacturinOrder": "Manufacturin Order",
+            "manufacturingOrder": "Manufacturing Order",
             "product": "Product"
         }
     }

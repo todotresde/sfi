@@ -125,6 +125,24 @@ public class ProductTypeResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productTypeRepository.findAll().size();
+        // set the field null
+        productType.setName(null);
+
+        // Create the ProductType, which fails.
+
+        restProductTypeMockMvc.perform(post("/api/product-types")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productType)))
+            .andExpect(status().isBadRequest());
+
+        List<ProductType> productTypeList = productTypeRepository.findAll();
+        assertThat(productTypeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllProductTypes() throws Exception {
         // Initialize the database
         productTypeRepository.saveAndFlush(productType);
