@@ -6,6 +6,9 @@ import { JhiEventManager } from 'ng-jhipster';
 import { ManufacturingOrder } from './manufacturing-order.model';
 import { ManufacturingOrderService } from './manufacturing-order.service';
 
+import { MOProduct } from '../m-o-product/mo-product.model';
+import { MOProductService } from '../m-o-product/mo-product.service';
+
 @Component({
     selector: 'jhi-manufacturing-order-detail',
     templateUrl: './manufacturing-order-detail.component.html'
@@ -13,12 +16,15 @@ import { ManufacturingOrderService } from './manufacturing-order.service';
 export class ManufacturingOrderDetailComponent implements OnInit, OnDestroy {
 
     manufacturingOrder: ManufacturingOrder;
+    mOProducts: MOProduct[];
+
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: JhiEventManager,
         private manufacturingOrderService: ManufacturingOrderService,
+        private mOProductService: MOProductService,
         private route: ActivatedRoute
     ) {
     }
@@ -33,6 +39,10 @@ export class ManufacturingOrderDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.manufacturingOrderService.find(id).subscribe((manufacturingOrder) => {
             this.manufacturingOrder = manufacturingOrder;
+        });
+
+        this.mOProductService.findByManufacturingOrder(id).subscribe((mOProducts) => {
+            this.mOProducts = mOProducts;
         });
     }
     previousState() {
