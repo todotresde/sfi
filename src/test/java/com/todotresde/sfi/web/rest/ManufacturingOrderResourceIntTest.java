@@ -4,6 +4,7 @@ import com.todotresde.sfi.SfiApp;
 
 import com.todotresde.sfi.domain.ManufacturingOrder;
 import com.todotresde.sfi.repository.ManufacturingOrderRepository;
+import com.todotresde.sfi.service.ManufacturingOrderService;
 import com.todotresde.sfi.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -52,6 +53,9 @@ public class ManufacturingOrderResourceIntTest {
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
     @Autowired
+    private ManufacturingOrderService manufacturingOrderService;
+
+    @Autowired
     private ManufacturingOrderRepository manufacturingOrderRepository;
 
     @Autowired
@@ -73,7 +77,7 @@ public class ManufacturingOrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ManufacturingOrderResource manufacturingOrderResource = new ManufacturingOrderResource(manufacturingOrderRepository);
+        final ManufacturingOrderResource manufacturingOrderResource = new ManufacturingOrderResource(manufacturingOrderRepository, manufacturingOrderService);
         this.restManufacturingOrderMockMvc = MockMvcBuilders.standaloneSetup(manufacturingOrderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

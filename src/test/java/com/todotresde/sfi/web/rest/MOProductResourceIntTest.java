@@ -6,6 +6,7 @@ import com.todotresde.sfi.domain.MOProduct;
 import com.todotresde.sfi.domain.ManufacturingOrder;
 import com.todotresde.sfi.domain.Product;
 import com.todotresde.sfi.repository.MOProductRepository;
+import com.todotresde.sfi.repository.ManufacturingOrderRepository;
 import com.todotresde.sfi.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -46,6 +47,9 @@ public class MOProductResourceIntTest {
     private MOProductRepository mOProductRepository;
 
     @Autowired
+    private ManufacturingOrderRepository manufacturingOrderRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -64,7 +68,7 @@ public class MOProductResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MOProductResource mOProductResource = new MOProductResource(mOProductRepository);
+        final MOProductResource mOProductResource = new MOProductResource(mOProductRepository, manufacturingOrderRepository);
         this.restMOProductMockMvc = MockMvcBuilders.standaloneSetup(mOProductResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

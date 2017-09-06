@@ -19,4 +19,6 @@ public interface WSConfigurationRepository extends JpaRepository<WSConfiguration
     @Query("select ws_configuration from WSConfiguration ws_configuration left join fetch ws_configuration.supplyTypes left join fetch ws_configuration.employees where ws_configuration.id =:id")
     WSConfiguration findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select ws_configuration from WSConfiguration ws_configuration where ws_configuration.line = :lineId and ws_configuration.first = :first")
+    List<WSConfiguration> findByLineAndFirst(@Param("lineId") Long id, @Param("first") Boolean first);
 }

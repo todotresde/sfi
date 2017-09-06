@@ -18,7 +18,8 @@
             "code": "Code",
             "orderDate": "Order Date",
             "status": "Status",
-            "name": "Name"
+            "name": "Name",
+            "send" : "Send"
         }
     }
 }

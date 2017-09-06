@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.todotresde.sfi.domain.ManufacturingOrder;
 
 import com.todotresde.sfi.repository.ManufacturingOrderRepository;
+import com.todotresde.sfi.service.ManufacturingOrderService;
 import com.todotresde.sfi.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -30,8 +31,10 @@ public class ManufacturingOrderResource {
     private static final String ENTITY_NAME = "manufacturingOrder";
 
     private final ManufacturingOrderRepository manufacturingOrderRepository;
-    public ManufacturingOrderResource(ManufacturingOrderRepository manufacturingOrderRepository) {
+    private final ManufacturingOrderService manufacturingOrderService;
+    public ManufacturingOrderResource(ManufacturingOrderRepository manufacturingOrderRepository, ManufacturingOrderService manufacturingOrderService) {
         this.manufacturingOrderRepository = manufacturingOrderRepository;
+        this.manufacturingOrderService = manufacturingOrderService;
     }
 
     /**
@@ -114,5 +117,19 @@ public class ManufacturingOrderResource {
         log.debug("REST request to delete ManufacturingOrder : {}", id);
         manufacturingOrderRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /manufacturing-order/:id : Send a manufacturingOrder to build.
+     *
+     * @param id the id of the manufacturingOrder to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the manufacturingOrder, or with status 404 (Not Found)
+     */
+    @GetMapping("/manufacturing-orders/send/{id}")
+    @Timed
+    public ResponseEntity<ManufacturingOrder> sendManufacturingOrder(@PathVariable Long id) {
+        log.debug("REST request to get ManufacturingOrder : {}", id);
+        ManufacturingOrder manufacturingOrder = manufacturingOrderService.send(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(manufacturingOrder));
     }
 }

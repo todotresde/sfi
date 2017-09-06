@@ -53,6 +53,13 @@
                             <span class="fa fa-remove"></span>
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'manufacturing-order/send/'+ manufacturingOrder.id } }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-cogs"></span>
+                            <span class="hidden-md-down" jhiTranslate="sfiApp.manufacturingOrder.send">Send</span>
+                        </button>
                     </div>
                 </td>
             </tr>
