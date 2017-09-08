@@ -31,6 +31,7 @@ public class ManufacturingOrderService {
         this.manufacturingOrderRepository = manufacturingOrderRepository;
     }
 
+    //TODO - Capture error in case of schedulerService.sendMOProduct fail
     public ManufacturingOrder send(Long id) {
         ManufacturingOrder manufacturingOrder = manufacturingOrderRepository.findOne(id);
         log.debug("Send manufacturingOrder to build {}", manufacturingOrder);
@@ -39,7 +40,11 @@ public class ManufacturingOrderService {
 
         for(MOProduct mOProduct: mOProducts){
             schedulerService.sendMOProduct(mOProduct);
-        }
+        }   
+
+        manufacturingOrder.setStatus(1);
+
+        manufacturingOrderRepository.save(manufacturingOrder);
 
         return manufacturingOrder;
     }

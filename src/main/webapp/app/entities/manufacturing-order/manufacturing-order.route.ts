@@ -8,6 +8,7 @@ import { ManufacturingOrderComponent } from './manufacturing-order.component';
 import { ManufacturingOrderDetailComponent } from './manufacturing-order-detail.component';
 import { ManufacturingOrderPopupComponent } from './manufacturing-order-dialog.component';
 import { ManufacturingOrderDeletePopupComponent } from './manufacturing-order-delete-dialog.component';
+import { ManufacturingOrderSendPopupComponent } from './manufacturing-order-send-dialog.component';
 
 export const manufacturingOrderRoute: Routes = [
     {
@@ -53,6 +54,16 @@ export const manufacturingOrderPopupRoute: Routes = [
     {
         path: 'manufacturing-order/:id/delete',
         component: ManufacturingOrderDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'sfiApp.manufacturingOrder.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
+        path: 'manufacturing-order/:id/send',
+        component: ManufacturingOrderSendPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'sfiApp.manufacturingOrder.home.title'

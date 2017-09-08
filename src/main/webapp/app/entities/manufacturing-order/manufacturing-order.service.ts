@@ -49,6 +49,14 @@ export class ManufacturingOrderService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
+    send(id: number): Observable<ManufacturingOrder> {
+        return this.http.get(`${this.resourceUrl}/send/${id}`).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {

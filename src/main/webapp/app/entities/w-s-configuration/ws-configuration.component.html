@@ -31,36 +31,36 @@
             <tbody>
             <tr *ngFor="let wSConfiguration of wSConfigurations ;trackBy: trackId">
                 <td><a [routerLink]="['../ws-configuration', wSConfiguration.id ]">{{wSConfiguration.id}}</a></td>
-                <td>{{wSConfiguration.first}}</td>
-                <td>{{wSConfiguration.last}}</td>
+                <td><input type="checkbox" value="" [checked]="wSConfiguration.first" readonly="readonly"></td>
+                <td><input type="checkbox" value="" [checked]="wSConfiguration.last" readonly="readonly"></td>
                 <td>
                     <div *ngIf="wSConfiguration.workStation">
-                        <a [routerLink]="['../work-station', wSConfiguration.workStation?.id ]" >{{wSConfiguration.workStation?.id}}</a>
+                        <a [routerLink]="['../work-station', wSConfiguration.workStation?.id ]" >{{wSConfiguration.workStation?.name}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="wSConfiguration.prevWorkStation">
-                        <a [routerLink]="['../work-station', wSConfiguration.prevWorkStation?.id ]" >{{wSConfiguration.prevWorkStation?.id}}</a>
+                        <a [routerLink]="['../work-station', wSConfiguration.prevWorkStation?.id ]" >{{wSConfiguration.prevWorkStation?.name}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="wSConfiguration.nextWorkStation">
-                        <a [routerLink]="['../work-station', wSConfiguration.nextWorkStation?.id ]" >{{wSConfiguration.nextWorkStation?.id}}</a>
+                        <a [routerLink]="['../work-station', wSConfiguration.nextWorkStation?.id ]" >{{wSConfiguration.nextWorkStation?.name}}</a>
                     </div>
                 </td>
                 <td>
                     <span *ngFor="let supplyType of wSConfiguration.supplyTypes; let last = last">
-                            <a class="form-control-static" [routerLink]="['../supply-type', supplyType?.id ]">{{supplyType.id}}</a>{{last ? '' : ', '}}
+                            <a class="form-control-static" [routerLink]="['../supply-type', supplyType?.id ]">{{supplyType.name}}</a>{{last ? '' : ', '}}
                         </span>
                 </td>
                 <td>
                     <span *ngFor="let employee of wSConfiguration.employees; let last = last">
-                            <a class="form-control-static" [routerLink]="['../employee', employee?.id ]">{{employee.id}}</a>{{last ? '' : ', '}}
+                            <a class="form-control-static" [routerLink]="['../employee', employee?.id ]">{{employee.name}}</a>{{last ? '' : ', '}}
                         </span>
                 </td>
                 <td>
                     <div *ngIf="wSConfiguration.line">
-                        <a [routerLink]="['../line', wSConfiguration.line?.id ]" >{{wSConfiguration.line?.id}}</a>
+                        <a [routerLink]="['../line', wSConfiguration.line?.id ]" >{{wSConfiguration.line?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

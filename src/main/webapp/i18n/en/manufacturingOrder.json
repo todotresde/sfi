@@ -15,6 +15,9 @@
             "detail": {
                 "title": "Manufacturing Order"
             },
+            "send": {
+                "question": "Are you sure you want to send Manufacturing Order {{ id }}?"
+            },
             "code": "Code",
             "orderDate": "Order Date",
             "status": "Status",

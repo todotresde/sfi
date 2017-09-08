@@ -5,6 +5,7 @@ import com.todotresde.sfi.domain.MOProduct;
 import com.todotresde.sfi.domain.Tracer;
 import com.todotresde.sfi.domain.WSConfiguration;
 import com.todotresde.sfi.repository.LineRepository;
+import com.todotresde.sfi.repository.TracerRepository;
 import com.todotresde.sfi.repository.WSConfigurationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,15 @@ public class LineService {
     private final Logger log = LoggerFactory.getLogger(LineService.class);
 
     private final LineRepository lineRepository;
+    private final TracerRepository tracerRepository;
     private final WSConfigurationRepository wSConfigurationRepository;
     private final WSConfigurationService wSConfigurationService;
 
-    public LineService(LineRepository lineRepository, WSConfigurationRepository wSConfigurationRepository, WSConfigurationService wSConfigurationService) {
+    public LineService(LineRepository lineRepository, WSConfigurationRepository wSConfigurationRepository, WSConfigurationService wSConfigurationService, TracerRepository tracerRepository) {
         this.lineRepository = lineRepository;
         this.wSConfigurationRepository = wSConfigurationRepository;
         this.wSConfigurationService = wSConfigurationService;
+        this.tracerRepository = tracerRepository;
     }
 
     public Line getBestLineForMOProduct(MOProduct mOProduct) {
@@ -57,7 +60,7 @@ public class LineService {
     }
 
     public void sendMOProduct(Line line, MOProduct mOProduct){
-        List<WSConfiguration> wSConfigurations = this.wSConfigurationRepository.findByLineAndFirst(line.getId(), true);
+        List<WSConfiguration> wSConfigurations = this.wSConfigurationRepository.findByLineAndFirst(line, true);
 
         WSConfiguration bestWSConfiguration = null;
         Long time = new Long(999999999);
@@ -81,6 +84,8 @@ public class LineService {
         tracer.setWorkStation(bestWSConfiguration.getWorkStation());
         tracer.setNextWorkStation(bestWSConfiguration.getNextWorkStation());
         tracer.setPrevWorkStation(bestWSConfiguration.getPrevWorkStation());
+
+        tracerRepository.save(tracer);
     }
 }
 

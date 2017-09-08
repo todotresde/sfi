@@ -54,7 +54,7 @@
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'manufacturing-order/send/'+ manufacturingOrder.id } }]"
+                                [routerLink]="['/', { outlets: { popup: 'manufacturing-order/'+ manufacturingOrder.id + '/send'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-cogs"></span>
