@@ -20,6 +20,7 @@
                 "productType": "Product Type",
                 "ptAttribute": "PT Attribute",
                 "tracer": "Tracer",
+                "wsTracer": "WSTracer",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

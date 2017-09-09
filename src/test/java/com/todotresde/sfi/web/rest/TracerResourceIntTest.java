@@ -9,6 +9,9 @@ import com.todotresde.sfi.domain.MOProduct;
 import com.todotresde.sfi.domain.Line;
 import com.todotresde.sfi.domain.WorkStation;
 import com.todotresde.sfi.repository.TracerRepository;
+import com.todotresde.sfi.repository.WorkStationRepository;
+import com.todotresde.sfi.service.LineService;
+import com.todotresde.sfi.service.TracerService;
 import com.todotresde.sfi.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -66,6 +69,15 @@ public class TracerResourceIntTest {
     private TracerRepository tracerRepository;
 
     @Autowired
+    private TracerService tracerService;
+
+    @Autowired
+    private LineService lineService;
+
+    @Autowired
+    private WorkStationRepository workStationRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -84,7 +96,7 @@ public class TracerResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TracerResource tracerResource = new TracerResource(tracerRepository);
+        final TracerResource tracerResource = new TracerResource(tracerRepository, workStationRepository, tracerService, lineService);
         this.restTracerMockMvc = MockMvcBuilders.standaloneSetup(tracerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

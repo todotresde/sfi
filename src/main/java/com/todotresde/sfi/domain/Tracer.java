@@ -1,5 +1,6 @@
 package com.todotresde.sfi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -71,9 +72,11 @@ public class Tracer implements Serializable {
     private WorkStation nextWorkStation;
 
     @ManyToOne
+    @JsonIgnore
     private Tracer nextTracer;
 
     @ManyToOne
+    @JsonIgnore
     private Tracer prevTracer;
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove

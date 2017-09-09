@@ -2,6 +2,7 @@ package com.todotresde.sfi.repository;
 
 import com.todotresde.sfi.domain.Line;
 import com.todotresde.sfi.domain.WSConfiguration;
+import com.todotresde.sfi.domain.WorkStation;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -20,6 +21,7 @@ public interface WSConfigurationRepository extends JpaRepository<WSConfiguration
     @Query("select ws_configuration from WSConfiguration ws_configuration left join fetch ws_configuration.supplyTypes left join fetch ws_configuration.employees where ws_configuration.id =:id")
     WSConfiguration findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query("select ws_configuration from WSConfiguration ws_configuration where ws_configuration.line = :line and ws_configuration.first = :first")
-    List<WSConfiguration> findByLineAndFirst(@Param("line") Line line, @Param("first") Boolean first);
+    List<WSConfiguration> findByLineAndFirst(Line line,Boolean first);
+
+    List<WSConfiguration> findByLineAndPrevWorkStation(Line line, WorkStation workStation);
 }

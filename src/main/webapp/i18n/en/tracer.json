@@ -29,7 +29,12 @@
             "prevWorkStation": "Prev Work Station",
             "nextWorkStation": "Next Work Station",
             "nextTracer": "Next Tracer",
-            "prevTracer": "Prev Tracer"
+            "prevTracer": "Prev Tracer",
+            "start": {
+                "start" : "Start",
+                "title" : "Start Tracer",
+                "finish" : "Finish"
+            }
         }
     }
 }

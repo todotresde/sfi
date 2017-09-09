@@ -22,6 +22,15 @@ export class TracerService {
         });
     }
 
+    send(tracer: Tracer): Observable<Tracer> {
+        const copy = this.convert(tracer);
+        return this.http.post(`${this.resourceUrl}/send`, copy).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
     update(tracer: Tracer): Observable<Tracer> {
         const copy = this.convert(tracer);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
@@ -42,6 +51,11 @@ export class TracerService {
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
+    queryByWorkStationIP(ip: string): Observable<ResponseWrapper> {
+        return this.http.get(`${this.resourceUrl}/workStationIP/${ip}/`)
             .map((res: Response) => this.convertResponse(res));
     }
 

@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("unused")
 @Repository
 public interface WorkStationRepository extends JpaRepository<WorkStation, Long> {
-
+    WorkStation findByIp(String ip);
 }

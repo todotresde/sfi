@@ -1,9 +1,6 @@
 package com.todotresde.sfi.service;
 
-import com.todotresde.sfi.domain.Line;
-import com.todotresde.sfi.domain.MOProduct;
-import com.todotresde.sfi.domain.Tracer;
-import com.todotresde.sfi.domain.WSConfiguration;
+import com.todotresde.sfi.domain.*;
 import com.todotresde.sfi.repository.LineRepository;
 import com.todotresde.sfi.repository.TracerRepository;
 import com.todotresde.sfi.repository.WSConfigurationRepository;
@@ -28,15 +25,13 @@ public class LineService {
     private final Logger log = LoggerFactory.getLogger(LineService.class);
 
     private final LineRepository lineRepository;
-    private final TracerRepository tracerRepository;
-    private final WSConfigurationRepository wSConfigurationRepository;
     private final WSConfigurationService wSConfigurationService;
+    private final TracerService tracerService;
 
-    public LineService(LineRepository lineRepository, WSConfigurationRepository wSConfigurationRepository, WSConfigurationService wSConfigurationService, TracerRepository tracerRepository) {
+    public LineService(LineRepository lineRepository, WSConfigurationService wSConfigurationService, TracerService tracerService) {
         this.lineRepository = lineRepository;
-        this.wSConfigurationRepository = wSConfigurationRepository;
         this.wSConfigurationService = wSConfigurationService;
-        this.tracerRepository = tracerRepository;
+        this.tracerService = tracerService;
     }
 
     public Line getBestLineForMOProduct(MOProduct mOProduct) {
@@ -60,32 +55,23 @@ public class LineService {
     }
 
     public void sendMOProduct(Line line, MOProduct mOProduct){
-        List<WSConfiguration> wSConfigurations = this.wSConfigurationRepository.findByLineAndFirst(line, true);
+        WSConfiguration wSConfiguration = this.wSConfigurationService.getFirstWSConfigurationForLine(line);
+        this.wSConfigurationService.create(wSConfiguration, line, mOProduct);
 
-        WSConfiguration bestWSConfiguration = null;
-        Long time = new Long(999999999);
+    }
 
-        for(WSConfiguration wSConfiguration: wSConfigurations){
-            Long wSConfigurationTime = this.wSConfigurationService.getTime(wSConfiguration);
-            if(wSConfigurationTime < time){
-                time = wSConfigurationTime;
-                bestWSConfiguration = wSConfiguration;
-            }
-        }
+    public Tracer sendFromWorkStationIP(String ip, Tracer tracer){
+        WSConfiguration nextWSConfiguration = this.getNextWSConfiguration(tracer.getWsConfiguration());
+        return this.tracerService.sendFromWorkStationIP(nextWSConfiguration, ip, tracer);
+    }
 
-        Tracer tracer = new Tracer();
-        tracer.setCode(UUID.randomUUID().toString());
-        tracer.setInTime(Instant.now());
-        tracer.setStatus(0);
-        tracer.setWsConfiguration(bestWSConfiguration);
-        tracer.setManufacturingOrder(mOProduct.getManufacturingOrder());
-        tracer.setMoProduct(mOProduct);
-        tracer.setLine(line);
-        tracer.setWorkStation(bestWSConfiguration.getWorkStation());
-        tracer.setNextWorkStation(bestWSConfiguration.getNextWorkStation());
-        tracer.setPrevWorkStation(bestWSConfiguration.getPrevWorkStation());
+    public Tracer send(Tracer tracer){
+        WSConfiguration nextWSConfiguration = this.getNextWSConfiguration(tracer.getWsConfiguration());
+        return this.tracerService.send(nextWSConfiguration, tracer);
+    }
 
-        tracerRepository.save(tracer);
+    public WSConfiguration getNextWSConfiguration(WSConfiguration wSConfiguration){
+        return this.wSConfigurationService.getNextWSConfiguration(wSConfiguration);
     }
 }
 

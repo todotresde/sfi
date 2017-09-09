@@ -21,12 +21,12 @@ public class ManufacturingOrderService {
 
     private final Logger log = LoggerFactory.getLogger(ManufacturingOrderService.class);
 
-    private final MOProductRepository mOProductRepository;
+    private final MOProductService mOProductService;
     private final SchedulerService schedulerService;
     private final ManufacturingOrderRepository manufacturingOrderRepository;
 
-    public ManufacturingOrderService(MOProductRepository mOProductRepository, SchedulerService schedulerService, ManufacturingOrderRepository manufacturingOrderRepository) {
-        this.mOProductRepository = mOProductRepository;
+    public ManufacturingOrderService(MOProductService mOProductService, SchedulerService schedulerService, ManufacturingOrderRepository manufacturingOrderRepository) {
+        this.mOProductService = mOProductService;
         this.schedulerService = schedulerService;
         this.manufacturingOrderRepository = manufacturingOrderRepository;
     }
@@ -36,11 +36,11 @@ public class ManufacturingOrderService {
         ManufacturingOrder manufacturingOrder = manufacturingOrderRepository.findOne(id);
         log.debug("Send manufacturingOrder to build {}", manufacturingOrder);
 
-        List<MOProduct> mOProducts = this.mOProductRepository.findByManufacturingOrder(manufacturingOrder);
+        List<MOProduct> mOProducts = this.mOProductService.getByManufacturingOrder(manufacturingOrder);
 
         for(MOProduct mOProduct: mOProducts){
             schedulerService.sendMOProduct(mOProduct);
-        }   
+        }
 
         manufacturingOrder.setStatus(1);
 
