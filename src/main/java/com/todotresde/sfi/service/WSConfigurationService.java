@@ -47,7 +47,7 @@ public class WSConfigurationService {
 
 
     public Long getTime(WSConfiguration wSConfiguration) {
-        return new Long(ThreadLocalRandom.current().nextInt(20, 100 ));
+        return new Long(this.tracerService.getTracersForWorkStation(wSConfiguration.getWorkStation()).size());
     }
 
     public void create(WSConfiguration wSConfiguration, Line line, MOProduct mOProduct){
@@ -57,7 +57,10 @@ public class WSConfigurationService {
     public WSConfiguration getNextWSConfiguration(WSConfiguration wSConfiguration){
         List<WSConfiguration> wSConfigurations = this.wSConfigurationRepository.findByLineAndPrevWorkStation(wSConfiguration.getLine(), wSConfiguration.getWorkStation());
 
-        return wSConfigurations.get(0);
+        if(!wSConfigurations.isEmpty())
+            return wSConfigurations.get(0);
+        else
+            return null;
     }
 }
 

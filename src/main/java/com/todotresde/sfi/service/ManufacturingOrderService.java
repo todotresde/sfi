@@ -39,7 +39,9 @@ public class ManufacturingOrderService {
         List<MOProduct> mOProducts = this.mOProductService.getByManufacturingOrder(manufacturingOrder);
 
         for(MOProduct mOProduct: mOProducts){
-            schedulerService.sendMOProduct(mOProduct);
+            for(Integer count = 0; count < mOProduct.getQuantity(); count++){
+                schedulerService.sendMOProduct(mOProduct);
+            }
         }
 
         manufacturingOrder.setStatus(1);

@@ -56,9 +56,9 @@
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'manufacturing-order/'+ manufacturingOrder.id + '/send'} }]"
                                 replaceUrl="true"
-                                class="btn btn-primary btn-sm">
+                                class="btn btn-primary btn-sm" *ngIf="manufacturingOrder.status==0" >
                             <span class="fa fa-cogs"></span>
-                            <span class="hidden-md-down" jhiTranslate="sfiApp.manufacturingOrder.send">Send</span>
+                            <span class="hidden-md-down" jhiTranslate="sfiApp.manufacturingOrder.send.send">Send</span>
                         </button>
                     </div>
                 </td>

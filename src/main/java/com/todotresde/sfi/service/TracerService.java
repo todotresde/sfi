@@ -56,7 +56,7 @@ public class TracerService {
         Boolean validTrace = this.tracerRepository.findByWorkStationAndCode(workStation, tracer.getCode()) != null;
 
         if(validTrace){
-            return this.move(wSConfiguration, tracer);
+            return this.moveNext(wSConfiguration, tracer);
         }
 
         return null;
@@ -67,34 +67,41 @@ public class TracerService {
         Boolean validTrace = this.tracerRepository.findByWorkStationAndCode(tracer.getWorkStation(), tracer.getCode()) != null;
 
         if(validTrace){
-            return this.move(wSConfiguration, tracer);
+            return this.moveNext(wSConfiguration, tracer);
         }
 
         return null;
     }
 
-    public Tracer move(WSConfiguration wSConfiguration, Tracer tracer){
-
+    public Tracer moveNext(WSConfiguration wSConfiguration, Tracer tracer){
         Tracer nextTracer = new Tracer();
-        nextTracer.setCode(tracer.getCode());
-        nextTracer.setInTime(Instant.now());
-        nextTracer.setStatus(0);
-        nextTracer.setWsConfiguration(wSConfiguration);
-        nextTracer.setManufacturingOrder(tracer.getManufacturingOrder());
-        nextTracer.setMoProduct(tracer.getMoProduct());
-        nextTracer.setLine(tracer.getLine());
-        nextTracer.setWorkStation(wSConfiguration.getWorkStation());
-        nextTracer.setNextWorkStation(wSConfiguration.getNextWorkStation());
-        nextTracer.setPrevWorkStation(wSConfiguration.getPrevWorkStation());
-        nextTracer.setPrevTracer(tracer);
 
-        tracerRepository.save(nextTracer);
+        if(wSConfiguration != null) {
+
+            nextTracer.setCode(tracer.getCode());
+            nextTracer.setInTime(Instant.now());
+            nextTracer.setStatus(0);
+            nextTracer.setWsConfiguration(wSConfiguration);
+            nextTracer.setManufacturingOrder(tracer.getManufacturingOrder());
+            nextTracer.setMoProduct(tracer.getMoProduct());
+            nextTracer.setLine(tracer.getLine());
+            nextTracer.setWorkStation(wSConfiguration.getWorkStation());
+            nextTracer.setNextWorkStation(wSConfiguration.getNextWorkStation());
+            nextTracer.setPrevWorkStation(wSConfiguration.getPrevWorkStation());
+            nextTracer.setPrevTracer(tracer);
+
+            tracerRepository.save(nextTracer);
+        }
 
         tracer.setStatus(1);
-        tracer.setNextTracer(nextTracer);
+        tracer.setNextTracer(null);
         tracerRepository.save(tracer);
 
         return nextTracer;
+    }
+
+    public List<Tracer> getTracersForWorkStation(WorkStation workStation){
+        return this.tracerRepository.findByWorkStationAndStatus(workStation,0);
     }
 }
 

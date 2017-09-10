@@ -4,6 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Tracer } from './tracer.model';
@@ -38,6 +39,7 @@ export class TracerStartComponent implements OnInit {
     tracers: Tracer[];
 
     constructor(
+        private datePipe: DatePipe,
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private tracerService: TracerService,
@@ -65,6 +67,8 @@ export class TracerStartComponent implements OnInit {
             .subscribe((res: ResponseWrapper) => { this.workstations = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.tracerService.query()
             .subscribe((res: ResponseWrapper) => { this.tracers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.tracer.startTime = this.datePipe
+                        .transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     }
 
     clear() {
@@ -73,6 +77,8 @@ export class TracerStartComponent implements OnInit {
 
     send() {
         this.isSending = true;
+        this.tracer.endTime = this.datePipe
+                        .transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
         this.subscribeToSendResponse(
                 this.tracerService.send(this.tracer));
     }

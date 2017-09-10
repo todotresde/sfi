@@ -18,6 +18,8 @@ import {
     tracerPopupRoute,
 } from './';
 
+import { SmallUUID } from '../../app.pipes';
+
 const ENTITY_STATES = [
     ...tracerRoute,
     ...tracerPopupRoute,
@@ -38,6 +40,7 @@ const ENTITY_STATES = [
         TracerDeleteDialogComponent,
         TracerPopupComponent,
         TracerDeletePopupComponent,
+        SmallUUID
     ],
     entryComponents: [
         TracerComponent,

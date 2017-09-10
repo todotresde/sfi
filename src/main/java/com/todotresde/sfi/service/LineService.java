@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -27,18 +26,21 @@ public class LineService {
     private final LineRepository lineRepository;
     private final WSConfigurationService wSConfigurationService;
     private final TracerService tracerService;
+    private final ProductService productService;
 
-    public LineService(LineRepository lineRepository, WSConfigurationService wSConfigurationService, TracerService tracerService) {
+    public LineService(LineRepository lineRepository, WSConfigurationService wSConfigurationService, TracerService tracerService, ProductService productService) {
         this.lineRepository = lineRepository;
         this.wSConfigurationService = wSConfigurationService;
         this.tracerService = tracerService;
+        this.productService = productService;
     }
 
     public Line getBestLineForMOProduct(MOProduct mOProduct) {
-        List<Line> lines = this.lineRepository.findAll();
+        List<Line> lines = this.getLineForMOProduct(mOProduct);
         Line bestLine = null;
         Long time = new Long(999999999);
 
+        //Get Lines that has necessary workstations to build thos MOProduct
         for(Line line: lines){
             Long lineTime = this.getTimeForLine(line);
             if(lineTime < time){
@@ -48,6 +50,26 @@ public class LineService {
         }
 
         return bestLine;
+    }
+
+    public List<Line> getLineForMOProduct(MOProduct mOProduct) {
+        List<Line> lines = this.lineRepository.findAll();
+        List<Line> linesForMOProduct = new ArrayList<Line>();
+
+        List<SupplyType> mOProductSupplyTypes = this.productService.getSupplyTypes(mOProduct.getProduct());
+        for(Line line: lines){
+            List<SupplyType> lineSupplyTypes = this.getSupplyTypesForLine(line);
+
+            /*Boolean hasSameSupplyTypes = mOProductSupplyTypes
+                .stream().map(supplyType -> supplyType.getId())
+                .collect(Collectors.toList())
+                .containsAll(lineSupplyTypes);*/
+            if(mOProductSupplyTypes.size() == lineSupplyTypes.size() && mOProductSupplyTypes.containsAll(lineSupplyTypes)){
+                linesForMOProduct.add(line);
+            }
+        }
+
+        return linesForMOProduct;
     }
 
     public Long getTimeForLine(Line line) {
@@ -72,6 +94,18 @@ public class LineService {
 
     public WSConfiguration getNextWSConfiguration(WSConfiguration wSConfiguration){
         return this.wSConfigurationService.getNextWSConfiguration(wSConfiguration);
+    }
+
+    public List<SupplyType> getSupplyTypesForLine(Line line){
+        Set<SupplyType> supplyTypes = new HashSet<SupplyType>();
+
+        for(WSConfiguration wSConfiguration: line.getWsConfigurations()){
+            for(SupplyType supplyType: wSConfiguration.getSupplyTypes()) {
+                supplyTypes.add(supplyType);
+            }
+        }
+
+        return new ArrayList<>(supplyTypes);
     }
 }
 
