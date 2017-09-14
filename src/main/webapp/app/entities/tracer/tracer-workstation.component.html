@@ -16,6 +16,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+            <th><span jhiTranslate="sfiApp.tracer.line">Line</span></th>
             <th><span jhiTranslate="sfiApp.tracer.code">Code</span></th>
             <th><span jhiTranslate="sfiApp.tracer.inTime">In Time</span></th>
             <th><span jhiTranslate="sfiApp.tracer.startTime">Start Time</span></th>
@@ -28,6 +29,11 @@
             </thead>
             <tbody>
             <tr *ngFor="let tracer of tracers ;trackBy: trackId">
+                <td>
+                    <div *ngIf="tracer.line">
+                        <a [routerLink]="['../line', tracer.line?.id ]" >{{tracer.line?.name}}</a>
+                    </div>
+                </td>
                 <td>{{tracer.code | smallUUID }}</td>
                 <td>{{tracer.inTime | date:'medium'}}</td>
                 <td>{{tracer.startTime | date:'medium'}}</td>

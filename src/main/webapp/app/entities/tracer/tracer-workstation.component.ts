@@ -37,11 +37,14 @@ tracers: Tracer[];
     }
     ngOnInit() {
         this.workStationIP = this.route.snapshot.paramMap.get('ip');
-        this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInTracers();
+        this.loadAll();
+        setInterval(() => {
+            this.loadAll();
+        }, 60000);
     }
 
     ngOnDestroy() {
