@@ -86,7 +86,7 @@ public class WorkStationResource {
     public List<WorkStation> getAllWorkStations() {
         log.debug("REST request to get all WorkStations");
         return workStationRepository.findAll();
-        }
+    }
 
     /**
      * GET  /work-stations/:id : get the "id" workStation.

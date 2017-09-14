@@ -86,7 +86,7 @@ public class WSConfigurationResource {
     public List<WSConfiguration> getAllWSConfigurations() {
         log.debug("REST request to get all WSConfigurations");
         return wSConfigurationRepository.findAllWithEagerRelationships();
-        }
+    }
 
     /**
      * GET  /w-s-configurations/:id : get the "id" wSConfiguration.

@@ -15,13 +15,13 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface WSConfigurationRepository extends JpaRepository<WSConfiguration, Long> {
-    @Query("select distinct ws_configuration from WSConfiguration ws_configuration left join fetch ws_configuration.supplyTypes left join fetch ws_configuration.employees")
+    @Query("select distinct ws_configuration from WSConfiguration ws_configuration left join fetch ws_configuration.supplyTypes left join fetch ws_configuration.employees left join fetch ws_configuration.prevWorkStations left join fetch ws_configuration.nextWorkStations")
     List<WSConfiguration> findAllWithEagerRelationships();
 
-    @Query("select ws_configuration from WSConfiguration ws_configuration left join fetch ws_configuration.supplyTypes left join fetch ws_configuration.employees where ws_configuration.id =:id")
+    @Query("select ws_configuration from WSConfiguration ws_configuration left join fetch ws_configuration.supplyTypes left join fetch ws_configuration.employees left join fetch ws_configuration.prevWorkStations left join fetch ws_configuration.nextWorkStations where ws_configuration.id =:id")
     WSConfiguration findOneWithEagerRelationships(@Param("id") Long id);
 
     List<WSConfiguration> findByLineAndFirst(Line line,Boolean first);
 
-    List<WSConfiguration> findByLineAndPrevWorkStation(Line line, WorkStation workStation);
+    List<WSConfiguration> findByLineAndPrevWorkStations(Line line, WorkStation workStation);
 }

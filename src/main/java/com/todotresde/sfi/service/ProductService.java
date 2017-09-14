@@ -1,7 +1,6 @@
 package com.todotresde.sfi.service;
 
 import com.todotresde.sfi.domain.*;
-import com.todotresde.sfi.repository.LineRepository;
 import com.todotresde.sfi.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.

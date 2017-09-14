@@ -39,14 +39,14 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="wSConfiguration.prevWorkStation">
-                        <a [routerLink]="['../work-station', wSConfiguration.prevWorkStation?.id ]" >{{wSConfiguration.prevWorkStation?.name}}</a>
-                    </div>
+                    <span *ngFor="let prevWorkStation of wSConfiguration.prevWorkStations; let last = last">
+                        <a class="form-control-static" [routerLink]="['../work-station', prevWorkStation?.id ]">{{prevWorkStation.id}}</a>{{last ? '' : ', '}}
+                    </span>
                 </td>
                 <td>
-                    <div *ngIf="wSConfiguration.nextWorkStation">
-                        <a [routerLink]="['../work-station', wSConfiguration.nextWorkStation?.id ]" >{{wSConfiguration.nextWorkStation?.name}}</a>
-                    </div>
+                    <span *ngFor="let nextWorkStation of wSConfiguration.nextWorkStations; let last = last">
+                        <a class="form-control-static" [routerLink]="['../work-station', nextWorkStation?.id ]">{{nextWorkStation.id}}</a>{{last ? '' : ', '}}
+                    </span>
                 </td>
                 <td>
                     <span *ngFor="let supplyType of wSConfiguration.supplyTypes; let last = last">

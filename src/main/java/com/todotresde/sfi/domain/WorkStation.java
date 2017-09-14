@@ -1,12 +1,15 @@
 package com.todotresde.sfi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A WorkStation.
@@ -33,6 +36,16 @@ public class WorkStation implements Serializable {
     @NotNull
     @Column(name = "ip", nullable = false)
     private String ip;
+
+    @ManyToMany(mappedBy = "prevWorkStations")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<WSConfiguration> prevWSConfigurations = new HashSet<>();
+
+    @ManyToMany(mappedBy = "nextWorkStations")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<WSConfiguration> nextWSConfigurations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -80,6 +93,56 @@ public class WorkStation implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public Set<WSConfiguration> getPrevWSConfigurations() {
+        return prevWSConfigurations;
+    }
+
+    public WorkStation prevWSConfigurations(Set<WSConfiguration> wSConfigurations) {
+        this.prevWSConfigurations = wSConfigurations;
+        return this;
+    }
+
+    public WorkStation addPrevWSConfiguration(WSConfiguration wSConfiguration) {
+        this.prevWSConfigurations.add(wSConfiguration);
+        wSConfiguration.getPrevWorkStations().add(this);
+        return this;
+    }
+
+    public WorkStation removePrevWSConfiguration(WSConfiguration wSConfiguration) {
+        this.prevWSConfigurations.remove(wSConfiguration);
+        wSConfiguration.getPrevWorkStations().remove(this);
+        return this;
+    }
+
+    public void setPrevWSConfigurations(Set<WSConfiguration> wSConfigurations) {
+        this.prevWSConfigurations = wSConfigurations;
+    }
+
+    public Set<WSConfiguration> getNextWSConfigurations() {
+        return nextWSConfigurations;
+    }
+
+    public WorkStation nextWSConfigurations(Set<WSConfiguration> wSConfigurations) {
+        this.nextWSConfigurations = wSConfigurations;
+        return this;
+    }
+
+    public WorkStation addNextWSConfiguration(WSConfiguration wSConfiguration) {
+        this.nextWSConfigurations.add(wSConfiguration);
+        wSConfiguration.getNextWorkStations().add(this);
+        return this;
+    }
+
+    public WorkStation removeNextWSConfiguration(WSConfiguration wSConfiguration) {
+        this.nextWSConfigurations.remove(wSConfiguration);
+        wSConfiguration.getNextWorkStations().remove(this);
+        return this;
+    }
+
+    public void setNextWSConfigurations(Set<WSConfiguration> wSConfigurations) {
+        this.nextWSConfigurations = wSConfigurations;
     }
     // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 

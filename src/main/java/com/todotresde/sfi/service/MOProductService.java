@@ -3,7 +3,6 @@ package com.todotresde.sfi.service;
 import com.todotresde.sfi.domain.MOProduct;
 import com.todotresde.sfi.domain.ManufacturingOrder;
 import com.todotresde.sfi.repository.MOProductRepository;
-import com.todotresde.sfi.repository.ManufacturingOrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

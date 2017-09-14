@@ -54,6 +54,20 @@ public class WSConfiguration implements Serializable {
                inverseJoinColumns = @JoinColumn(name="employees_id", referencedColumnName="id"))
     private Set<Employee> employees = new HashSet<>();
 
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "wsconfiguration_prev_work_station",
+        joinColumns = @JoinColumn(name="wsconfigurations_id", referencedColumnName="id"),
+        inverseJoinColumns = @JoinColumn(name="prev_work_stations_id", referencedColumnName="id"))
+    private Set<WorkStation> prevWorkStations = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "wsconfiguration_next_work_station",
+        joinColumns = @JoinColumn(name="wsconfigurations_id", referencedColumnName="id"),
+        inverseJoinColumns = @JoinColumn(name="next_work_stations_id", referencedColumnName="id"))
+    private Set<WorkStation> nextWorkStations = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
     private Line line;
@@ -106,30 +120,54 @@ public class WSConfiguration implements Serializable {
         this.workStation = workStation;
     }
 
-    public WorkStation getPrevWorkStation() {
-        return prevWorkStation;
+    public Set<WorkStation> getPrevWorkStations() {
+        return prevWorkStations;
     }
 
-    public WSConfiguration prevWorkStation(WorkStation workStation) {
-        this.prevWorkStation = workStation;
+    public WSConfiguration prevWorkStations(Set<WorkStation> workStations) {
+        this.prevWorkStations = workStations;
         return this;
     }
 
-    public void setPrevWorkStation(WorkStation workStation) {
-        this.prevWorkStation = workStation;
-    }
-
-    public WorkStation getNextWorkStation() {
-        return nextWorkStation;
-    }
-
-    public WSConfiguration nextWorkStation(WorkStation workStation) {
-        this.nextWorkStation = workStation;
+    public WSConfiguration addPrevWorkStation(WorkStation workStation) {
+        this.prevWorkStations.add(workStation);
+        workStation.getPrevWSConfigurations().add(this);
         return this;
     }
 
-    public void setNextWorkStation(WorkStation workStation) {
-        this.nextWorkStation = workStation;
+    public WSConfiguration removePrevWorkStation(WorkStation workStation) {
+        this.prevWorkStations.remove(workStation);
+        workStation.getPrevWSConfigurations().remove(this);
+        return this;
+    }
+
+    public void setPrevWorkStations(Set<WorkStation> workStations) {
+        this.prevWorkStations = workStations;
+    }
+
+    public Set<WorkStation> getNextWorkStations() {
+        return nextWorkStations;
+    }
+
+    public WSConfiguration nextWorkStations(Set<WorkStation> workStations) {
+        this.nextWorkStations = workStations;
+        return this;
+    }
+
+    public WSConfiguration addNextWorkStation(WorkStation workStation) {
+        this.nextWorkStations.add(workStation);
+        workStation.getNextWSConfigurations().add(this);
+        return this;
+    }
+
+    public WSConfiguration removeNextWorkStation(WorkStation workStation) {
+        this.nextWorkStations.remove(workStation);
+        workStation.getNextWSConfigurations().remove(this);
+        return this;
+    }
+
+    public void setNextWorkStations(Set<WorkStation> workStations) {
+        this.nextWorkStations = workStations;
     }
 
     public Set<SupplyType> getSupplyTypes() {

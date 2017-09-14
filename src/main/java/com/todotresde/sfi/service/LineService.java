@@ -2,17 +2,13 @@ package com.todotresde.sfi.service;
 
 import com.todotresde.sfi.domain.*;
 import com.todotresde.sfi.repository.LineRepository;
-import com.todotresde.sfi.repository.TracerRepository;
-import com.todotresde.sfi.repository.WSConfigurationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -83,13 +79,23 @@ public class LineService {
     }
 
     public Tracer sendFromWorkStationIP(String ip, Tracer tracer){
+        WorkStation nextWorkStation = null;
         WSConfiguration nextWSConfiguration = this.getNextWSConfiguration(tracer.getWsConfiguration());
-        return this.tracerService.sendFromWorkStationIP(nextWSConfiguration, ip, tracer);
+        if(nextWSConfiguration != null) {
+            WSConfiguration nextToNextWSConfiguration = this.getNextWSConfiguration(nextWSConfiguration);
+            nextWorkStation = (nextToNextWSConfiguration != null) ? nextToNextWSConfiguration.getWorkStation() : null;
+        }
+        return this.tracerService.sendFromWorkStationIP(nextWSConfiguration, ip, tracer, nextWorkStation);
     }
 
     public Tracer send(Tracer tracer){
+        WorkStation nextWorkStation = null;
         WSConfiguration nextWSConfiguration = this.getNextWSConfiguration(tracer.getWsConfiguration());
-        return this.tracerService.send(nextWSConfiguration, tracer);
+        if(nextWSConfiguration != null) {
+            WSConfiguration nextToNextWSConfiguration = this.getNextWSConfiguration(nextWSConfiguration);
+            nextWorkStation = (nextToNextWSConfiguration != null) ? nextToNextWSConfiguration.getWorkStation() : null;
+        }
+        return this.tracerService.send(nextWSConfiguration, tracer, nextWorkStation);
     }
 
     public WSConfiguration getNextWSConfiguration(WSConfiguration wSConfiguration){

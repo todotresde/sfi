@@ -1,15 +1,14 @@
 package com.todotresde.sfi.service;
 
 import com.todotresde.sfi.domain.*;
-import com.todotresde.sfi.repository.MOProductRepository;
 import com.todotresde.sfi.repository.WSConfigurationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Service class for managing users.
@@ -51,16 +50,45 @@ public class WSConfigurationService {
     }
 
     public void create(WSConfiguration wSConfiguration, Line line, MOProduct mOProduct){
-        this.tracerService.create(line, mOProduct, wSConfiguration);
+        WorkStation prevWorkStation = null;
+        WorkStation nextWorkStation = this.getNextWorkStation(wSConfiguration);
+
+        this.tracerService.create(line, mOProduct, wSConfiguration, prevWorkStation, nextWorkStation);
     }
 
-    public WSConfiguration getNextWSConfiguration(WSConfiguration wSConfiguration){
-        List<WSConfiguration> wSConfigurations = this.wSConfigurationRepository.findByLineAndPrevWorkStation(wSConfiguration.getLine(), wSConfiguration.getWorkStation());
+    public WSConfiguration getNextWSConfiguration(WSConfiguration wSConfiguration) {
+        List<WSConfiguration> wSConfigurations = this.wSConfigurationRepository.findByLineAndPrevWorkStations(wSConfiguration.getLine(), wSConfiguration.getWorkStation());
+        WSConfiguration bestWSConfiguration = null;
 
-        if(!wSConfigurations.isEmpty())
-            return wSConfigurations.get(0);
-        else
-            return null;
+        if (!wSConfigurations.isEmpty()){
+            Long time = new Long(999999999);
+
+            for (WSConfiguration wSConfiguration1 : wSConfigurations) {
+                Long wSConfigurationTime = this.getTime(wSConfiguration1);
+                if (wSConfigurationTime < time) {
+                    time = wSConfigurationTime;
+                    bestWSConfiguration = wSConfiguration1;
+                }
+            }
+        }
+
+        return bestWSConfiguration;
+    }
+
+    public WorkStation getNextWorkStation(WSConfiguration wSConfiguration){
+        List<WorkStation> nextWorkStations = new ArrayList<WorkStation>(wSConfiguration.getNextWorkStations());
+        WorkStation bestWorkStation = null;
+        Integer maxTracers = new Integer(999999999);
+
+        for(WorkStation workStation: nextWorkStations){
+            Integer numberOfTracers = this.tracerService.getTracersForWorkStation(workStation).size();
+            if(numberOfTracers < maxTracers){
+                maxTracers = numberOfTracers;
+                bestWorkStation = workStation;
+            }
+        }
+
+        return bestWorkStation;
     }
 }
 

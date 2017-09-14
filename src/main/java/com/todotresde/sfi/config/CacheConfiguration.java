@@ -70,6 +70,11 @@ public class CacheConfiguration {
             cm.createCache(com.todotresde.sfi.domain.PTAttribute.class.getName(), jcacheConfiguration);
             cm.createCache(com.todotresde.sfi.domain.PTAttribute.class.getName() + ".productTypes", jcacheConfiguration);
             cm.createCache(com.todotresde.sfi.domain.Tracer.class.getName(), jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WSConfiguration.class.getName() + ".prevWorkStations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WSConfiguration.class.getName() + ".nextWorkStations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WorkStation.class.getName() + ".wsConfigurations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WorkStation.class.getName() + ".prevWSConfigurations", jcacheConfiguration);
+            cm.createCache(com.todotresde.sfi.domain.WorkStation.class.getName() + ".nextWSConfigurations", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
